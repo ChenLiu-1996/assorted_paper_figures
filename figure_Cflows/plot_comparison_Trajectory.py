@@ -35,7 +35,7 @@ if __name__ == '__main__':
     plt.rcParams['axes.spines.top'] = False
     plt.rcParams['axes.linewidth'] = 3
 
-    fig = plt.figure(figsize=(30, 7))
+    fig = plt.figure(figsize=(36, 6))
 
     num_methods = len(data_comparison_Trajectory['methods'])
     for metric_idx, metric_name in enumerate(data_comparison_Trajectory['metrics']):

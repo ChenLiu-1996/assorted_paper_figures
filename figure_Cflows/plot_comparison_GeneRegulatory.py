@@ -38,7 +38,7 @@ if __name__ == '__main__':
     plt.rcParams['axes.spines.top'] = False
     plt.rcParams['axes.linewidth'] = 3
 
-    fig = plt.figure(figsize=(30, 7))
+    fig = plt.figure(figsize=(36, 6))
 
     num_methods = len(data_comparison_GeneRegulatory['methods'])
     for dataset_idx, dataset_name in enumerate(data_comparison_GeneRegulatory['datasets']):
@@ -69,6 +69,6 @@ if __name__ == '__main__':
     fig.tight_layout(pad=2)
 
     os.makedirs('./figures/', exist_ok=True)
-    fig.savefig('./figures/figX_comparison_GeneRegulatory.png', dpi=300)
-    fig.savefig('./figures/figX_comparison_GeneRegulatory.pdf', dpi=300)
+    fig.savefig('./figures/fig2_comparison_GeneRegulatory.png', dpi=300)
+    fig.savefig('./figures/fig2_comparison_GeneRegulatory.pdf', dpi=300)
     plt.close(fig)
