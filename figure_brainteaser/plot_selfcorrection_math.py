@@ -35,12 +35,10 @@ data_math_correcting_human = {
                 r'OpenAI o3'],
     'colors': ['#DDF3DE', '#AADCA9', '#8BCF8B', '#F6CFCB', '#E9A6A1', '#3775BA'],
     'subtypes': [r'False confession$\downarrow$',
-                #  r'No response$\downarrow$',
                  r'Degenerate repetition or stuck$\downarrow$',
                  r'Justified denial$\uparrow$'],
     'result': {
         r'False confession$\downarrow$': np.array([8, 10, 10, 13, 14, 12]) / 14 ,
-        # r'No response$\downarrow$': np.array([0, 0, 0, 0, 0, 2]) / 14 ,
         r'Degenerate repetition or stuck$\downarrow$': np.array([5, 3, 2, 0, 0, 0]) / 14 ,
         r'Justified denial$\uparrow$': np.array([0, 1, 2, 1, 0, 0]) / 14 ,
         },
