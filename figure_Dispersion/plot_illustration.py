@@ -302,7 +302,7 @@ def plot_infonce_l2(ax):
 
     arrow_disp = Line2D([], [], color="#b64342", alpha=0.8,
                         marker=r'$\rightarrow$', linestyle="None", markersize=25,
-                        label=r"InfoNCE$_{l_2}$")
+                        label=r"InfoNCE$_{\ell_2}$")
     arrow_norm = Line2D([0, 1], [0, 0], color="#9a4d8e", alpha=0.8,
                         marker=r'$\rightarrow$', linestyle="None", markersize=25,
                         label="norm regularization")
@@ -362,7 +362,7 @@ def plot_infonce_cossim(ax):
             bbox=dict(facecolor="white", alpha=1, edgecolor="none", boxstyle="round,pad=0.2"))
 
     arrow_disp = Line2D([], [], color="#b64342", alpha=0.8,
-                        marker=r'$\leftarrow\rightarrow$', linestyle="None", markersize=50, label=r"InfoNCE$_{l_2}$")
+                        marker=r'$\leftarrow\rightarrow$', linestyle="None", markersize=50, label=r"InfoNCE$_{\ell_2}$")
     ax.legend(handles=[arrow_disp], frameon=False, loc="lower center", fontsize=24, bbox_to_anchor=(0.5, 0.14))
     return ax
 
