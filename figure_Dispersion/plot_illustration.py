@@ -24,9 +24,9 @@ def nice_axes(ax, L):
     ax.quiver(0, 0, 0, L, 0, 0, color="black", linewidth=2, arrow_length_ratio=0.1)
     ax.quiver(0, 0, 0, 0, -y_scale*L, 0, color="black", linewidth=2, arrow_length_ratio=0.1)
     ax.quiver(0, 0, 0, 0, 0, z_scale*L, color="black", linewidth=2, arrow_length_ratio=0.1)
-    ax.text(L*1.1, 0, 0, "x", color="black", fontsize=20)
-    ax.text(0, -y_scale*L*1.2, 0, "y", color="black", fontsize=20)
-    ax.text(0, 0, z_scale*L*1.1, "z", color="black", fontsize=20)
+    ax.text(L*1.02, 0, 0, "x", color="black", fontsize=36)
+    ax.text(0, -y_scale*L*1.25, 0, "y", color="black", fontsize=36)
+    ax.text(0, 0, z_scale*L*1.05, "z", color="black", fontsize=36)
     ax.grid(False)
     ax.xaxis.pane.set_visible(False)
     ax.yaxis.pane.set_visible(False)
@@ -259,7 +259,7 @@ def plot_hinge(ax):
 def plot_infonce_l2(ax):
     num_points = 10
     tau = 0.5
-    spread = 3.0
+    spread = 2.9
 
     Z = spread * np.random.randn(num_points, 3)
     d = Z.shape[1]
@@ -308,6 +308,12 @@ def plot_infonce_l2(ax):
                         label="norm regularization")
     ax.legend(handles=[arrow_disp, arrow_norm], frameon=False, loc="lower center",
               fontsize=24, bbox_to_anchor=(0.5, 0))
+
+    ax.text(0.8, 0.0, 8.0, "pairwise dispersion", color="#b64342", fontsize=24, ha="left", va="center",
+            bbox=dict(facecolor="white", alpha=1, edgecolor="none", boxstyle="round,pad=0.2"))
+    ax.text(0.8, 0.0, 6.5, "norm reduction", color="#9a4d8e", fontsize=24, ha="left", va="center",
+            bbox=dict(facecolor="white", alpha=1, edgecolor="none", boxstyle="round,pad=0.2"))
+
     return ax
 
 
