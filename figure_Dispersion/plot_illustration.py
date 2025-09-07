@@ -377,7 +377,7 @@ def plot_infonce_cossim(ax):
 
     arrow_disp = Line2D([], [], color="#b64342", alpha=0.8,
                         marker=r'$\leftarrow\rightarrow$', linestyle="None", markersize=50, label=r"InfoNCE$_\texttt{cossim}$")
-    ax.legend(handles=[arrow_disp], frameon=False, loc="lower center", fontsize=24, bbox_to_anchor=(0.5, 0.14))
+    ax.legend(handles=[arrow_disp], frameon=False, loc="lower center", fontsize=24, bbox_to_anchor=(0.5, 0.145))
     return ax
 
 
