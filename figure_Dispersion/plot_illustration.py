@@ -19,14 +19,14 @@ def safe_scale(V, s=0.6, eps=EPSILON):
     return V / (eps + n) / s
 
 def nice_axes(ax, L):
-    y_scale = 0.6
+    y_scale = 1
     z_scale = 1.2
-    ax.quiver(0, 0, 0, L, 0, 0, color="black", linewidth=2, arrow_length_ratio=0.1)
-    ax.quiver(0, 0, 0, 0, -y_scale*L, 0, color="black", linewidth=2, arrow_length_ratio=0.1)
+    ax.quiver(0, 0, 0, 0, -L, 0, color="black", linewidth=2, arrow_length_ratio=0.1)
+    ax.quiver(0, 0, 0, y_scale*L, 0, 0, color="black", linewidth=2, arrow_length_ratio=0.1)
     ax.quiver(0, 0, 0, 0, 0, z_scale*L, color="black", linewidth=2, arrow_length_ratio=0.1)
-    ax.text(L*1.02, 0, 0, "x", color="black", fontsize=36)
-    ax.text(0, -y_scale*L*1.25, 0, "y", color="black", fontsize=36)
-    ax.text(0, 0, z_scale*L*1.05, "z", color="black", fontsize=36)
+    ax.text(0, -L*1.2, 0, "x", color="black", fontsize=36)
+    ax.text(y_scale*L*1.05, -0.2, 0, "y", color="black", fontsize=36)
+    ax.text(-0.2, 0, z_scale*L*1.05, "z", color="black", fontsize=36)
     ax.grid(False)
     ax.xaxis.pane.set_visible(False)
     ax.yaxis.pane.set_visible(False)
@@ -40,7 +40,7 @@ def nice_axes(ax, L):
     return ax
 
 def _to3d_xy(xy):
-    x, y = xy[:,0], xy[:,1]
+    x, y = xy[:, 0], xy[:, 1]
     z = np.sqrt(np.clip(1.0 - x*x - y*y, 0.0, 1.0))
     P = np.stack([x, y, z], axis=1)
     # normalize (robust against tiny numerical drift)
@@ -66,7 +66,7 @@ def draw_geodesic(ax, a2d, b2d, linestyle='-', draw_arrow=True, alpha=0.8,
                   num_points_grid=300, color='blue', lw=2.0, arrow_scale=30, shorten=0.04):
     A3, B3 = _to3d_xy(np.array([a2d])), _to3d_xy(np.array([b2d]))
     arc = _slerp_arc(A3[0], B3[0], n=num_points_grid)
-    x_full, y_full = arc[:,0], arc[:,1]
+    x_full, y_full = arc[:, 0], arc[:, 1]
 
     if draw_arrow:
         k0 = int(2 * shorten * num_points_grid)
@@ -185,8 +185,8 @@ def plot_covariance(ax):
     rxy = np.sqrt(xw**2 + yw**2) + EPSILON
     Psphere = np.stack([xw/rxy, yw/rxy, np.zeros_like(rxy)], axis=1)
 
-    ax.scatter(Pellip[:,0], Pellip[:,1], s=80, color='#0c2458', alpha=0.5)
-    ax.scatter(Psphere[:,0], Psphere[:,1], s=80, facecolors='#b64342', alpha=0.5, linewidths=2)
+    ax.scatter(Pellip[:, 0], Pellip[:, 1], s=80, color='#0c2458', alpha=0.5)
+    ax.scatter(Psphere[:, 0], Psphere[:, 1], s=80, facecolors='#b64342', alpha=0.5, linewidths=2)
 
     for p0, p1 in zip(Pellip, Psphere):
         ax.annotate("", xy=(p1[0], p1[1]), xytext=(p0[0], p0[1]),
@@ -236,7 +236,7 @@ def plot_hinge(ax):
         [0.9, 0.0],
         [-0.75, -0.4],
     ])
-    ax.scatter(pts[:,0], pts[:,1], s=80, color='#0c2458', alpha=0.5)
+    ax.scatter(pts[:, 0], pts[:, 1], s=80, color='#0c2458', alpha=0.5)
     ax = draw_geodesic(ax, pts[0], pts[1], color='#b64342', lw=4)
     ax = draw_geodesic(ax, pts[0], pts[2], color='#b64342', lw=4)
     ax = draw_geodesic(ax, pts[1], pts[2], linestyle='--', draw_arrow=False, color='#42949e', lw=4, alpha=0.5)
@@ -257,12 +257,20 @@ def plot_hinge(ax):
     return ax
 
 def plot_infonce_l2(ax):
-    num_points = 10
     tau = 0.5
-    spread = 2.9
 
-    Z = spread * np.random.randn(num_points, 3)
-    d = Z.shape[1]
+    Z = np.array([
+        [ 3.0, -3.0, 0.0],
+        [ 1.0, -3.0, 0.0],
+        [ -3.0, -2.0, -1.0],
+        [ -2.0, -1.0, 1.0],
+        [ -2.0, -1.0, 4.0],
+        [ 0.0, 2.0, 2.0],
+        [ 4.0, 0.0, 2.0],
+        [ 4.0, -2.0, 0.0],
+    ])
+
+    num_points, d = Z.shape
 
     D2 = pairwise_sqdist(Z) / d
     W = np.exp(-D2 / tau)
@@ -276,11 +284,11 @@ def plot_infonce_l2(ax):
     Vn = -Z / (np.linalg.norm(Z, axis=1, keepdims=True) + EPSILON)
 
     ax.view_init(elev=30, azim=-60)
-    ax = nice_axes(ax, np.abs(Z).max())
-    ax.set_xlim([-4, 4])
-    ax.set_ylim([-3, 3])
+    ax = nice_axes(ax, 6)
+    ax.set_xlim([-3, 5])
+    ax.set_ylim([-3, 5])
     ax.set_zlim([-6, 4])
-    ax.scatter(Z[:,0], Z[:,1], Z[:,2], s=80, color='#0c2458', alpha=0.5)
+    ax.scatter(Z[:, 0], Z[:, 1], Z[:, 2], s=80, color='#0c2458', alpha=0.5)
 
     for i in range(num_points):
         p0 = Z[i]
@@ -293,11 +301,11 @@ def plot_infonce_l2(ax):
         p0 = Z[i]
         p1 = Z[i] + Vn[i] * 1.2
         arrow = Arrow3D([p0[0], p1[0]], [p0[1], p1[1]], [p0[2], p1[2]],
-                        mutation_scale=10, lw=2, arrowstyle='->', color='#9a4d8e', alpha=0.8)
+                        mutation_scale=10, lw=3, arrowstyle='->', color='#9a4d8e', alpha=0.8)
         ax.add_artist(arrow)
 
     for i in range(num_points):
-        ax.plot([Z[i,0], 0], [Z[i,1], 0], [Z[i,2], 0],
+        ax.plot([Z[i, 0], 0], [Z[i, 1], 0], [Z[i, 2], 0],
                 linestyle="--", color="black", linewidth=1, alpha=0.8)
 
     arrow_disp = Line2D([], [], color="#b64342", alpha=0.8,
@@ -352,7 +360,7 @@ def plot_infonce_cossim(ax):
         [0.9, 0.0],
         [-0.75, -0.4],
     ])
-    ax.scatter(pts[:,0], pts[:,1], s=80, color='#0c2458', alpha=0.5)
+    ax.scatter(pts[:, 0], pts[:, 1], s=80, color='#0c2458', alpha=0.5)
     ax = draw_geodesic(ax, pts[0], pts[1], color='#b64342', lw=4)
     ax = draw_geodesic(ax, pts[0], pts[2], color='#b64342', lw=4)
     ax = draw_geodesic(ax, pts[1], pts[2], color='#b64342', lw=4)
@@ -368,14 +376,13 @@ def plot_infonce_cossim(ax):
             bbox=dict(facecolor="white", alpha=1, edgecolor="none", boxstyle="round,pad=0.2"))
 
     arrow_disp = Line2D([], [], color="#b64342", alpha=0.8,
-                        marker=r'$\leftarrow\rightarrow$', linestyle="None", markersize=50, label=r"InfoNCE$_{\ell_2}$")
+                        marker=r'$\leftarrow\rightarrow$', linestyle="None", markersize=50, label=r"InfoNCE$_\texttt{cossim}$")
     ax.legend(handles=[arrow_disp], frameon=False, loc="lower center", fontsize=24, bbox_to_anchor=(0.5, 0.14))
     return ax
 
 
 if __name__ == "__main__":
     save_path = './figures/illustration.png'
-    np.random.seed(1)
     plt.rcParams['text.usetex'] = True
     plt.rcParams['font.family'] = 'sans-serif'
     fig = plt.figure(figsize=(24, 8))
