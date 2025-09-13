@@ -7,7 +7,7 @@ EPSILON = 1e-6
 
 def sample_points_in_ball(num_points, theta_range=2*np.pi):
     r = np.sqrt(np.random.uniform(0, 0.95, num_points))
-    theta = np.random.uniform(0, theta_range, num_points)
+    theta = np.random.uniform(np.pi/2 - theta_range/2, np.pi/2 + theta_range/2, num_points)
     x = r * np.cos(theta)
     y = r * np.sin(theta)
     return np.stack([x, y], axis=1)
@@ -31,7 +31,7 @@ def plot_ball_with_points(ax, pts, facecolor):
     light_dir = np.array([-0.5, 0.5, 0.8])
     light_dir /= np.linalg.norm(light_dir)
     intensity = np.maximum(0.0, nx*light_dir[0] + ny*light_dir[1] + nz*light_dir[2])
-    shade = np.clip(0 + 1.2*intensity, 0, 1)
+    shade = np.clip(-0.5 + 2.0*intensity, 0, 1)
 
     img = np.ones((num_points_grid, num_points_grid))
     img[mask] = shade[mask]

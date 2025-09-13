@@ -68,8 +68,9 @@ data_ablation_IEDB = {
 
 data_comparison_Cancer = {
     'methods': [r'Prime-2.1', r'NetMHCpan', r'MHCnuggets', r'MHCflurry', r'DeepNeo',
-                r'BigMHC-EL', r'BigMHC-IM', r'BigMHC$_\text{retrained}$', r'ImmunoStruct (ours)'],
-    'colors': ['#CFCECE', '#F4EEAC', '#FBDFE2', '#D9B9D4', '#DAA87C', '#DDF3DE', '#AADCA9', '#8BCF8B', '#3775BA'],
+                r'BigMHC-EL', r'BigMHC-IM', r'BigMHC$_\text{retrained}$', r'NeoaPred',
+                r'ImmunoStruct (ours)'],
+    'colors': ['#CFCECE', '#F4EEAC', '#FBDFE2', '#D9B9D4', '#DAA87C', '#DDF3DE', '#AADCA9', '#8BCF8B', "#92E3F9", '#3775BA'],
     'metrics': ['AUROC', 'AUPRC', 'Mean PPVn'],
     'mean': np.array([
         [0.645, 0.259, 0.295],
@@ -80,6 +81,7 @@ data_comparison_Cancer = {
         [0.632, 0.248, 0.245],
         [0.771, 0.373, 0.357],
         [0.682, 0.310, 0.325],
+        [0.556, 0.267, 0.292],
         [0.771, 0.433, 0.364],
     ]),
     'std': np.array([
@@ -91,6 +93,7 @@ data_comparison_Cancer = {
         [0.034, 0.039, 0.042 / np.sqrt(5)],
         [0.040, 0.062, 0.036 / np.sqrt(5)],
         [0.012, 0.020, 0.030 / np.sqrt(5)],
+        [0.016, 0.022, 0.081 / np.sqrt(5)],
         [0.024, 0.069, 0.127 / np.sqrt(5)],
     ]),
 }

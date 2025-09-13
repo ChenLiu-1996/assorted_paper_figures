@@ -132,7 +132,7 @@ if __name__ == '__main__':
            yerr=data_comparison_Cancer['std'][:, 0],
            capsize=5,
            color=data_comparison_Cancer['colors'],
-           label=data_comparison_IEDB['methods'])
+           label=data_comparison_Cancer['methods'])
     handles, labels = ax.get_legend_handles_labels()
     ax.set_xticks([])
     ax.set_ylim([0.5, 0.82])
