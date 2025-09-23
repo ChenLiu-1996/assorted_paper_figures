@@ -1,6 +1,6 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
 
 def function(x, y):
@@ -57,5 +57,5 @@ if __name__ == '__main__':
     ax.view_init(elev=20, azim=50)
 
     fig.tight_layout(pad=2)
-    fig.savefig('manifold.png')
-    # plt.show()
+    os.makedirs('./figures', exist_ok=True)
+    fig.savefig('./figures/manifold.png')
