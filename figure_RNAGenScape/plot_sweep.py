@@ -5,14 +5,14 @@ from matplotlib.ticker import MaxNLocator
 
 
 results_increase = {
-    r'Median property change': [0.1125, 0.44046, 0.46006, 0.45625, 0.46510, 0.4718],
-    r'Percentage improved $\uparrow$': [55.15, 70.11, 71.02, 71.46, 71.52, 71.97],
-    r'Latent space distance $\downarrow$': [0.11868, 0.11877, 0.11961, 0.11964, 0.11999, 0.11978],
+    r'Median property change': [0.1125, 0.44046, 0.46006, 0.45625, 0.46510], #0.4718
+    r'Percentage improved $\uparrow$': [55.15, 70.11, 71.02, 71.46, 71.52], #71.97
+    r'Latent space distance $\downarrow$': [0.11868, 0.11877, 0.11961, 0.11964, 0.11999], #0.11978
 }
 results_decrease = {
-    r'Median property change': [-1.1246, -1.5761, -1.62873, -1.65457, -1.65872, -1.66086],#, -1.65757],
-    r'Percentage improved $\uparrow$': [79.39, 86.31, 87.08, 87.24, 87.01, 86.81],#, 87.32],
-    r'Latent space distance $\downarrow$': [0.16017, 0.12758, 0.12141, 0.12024, 0.12015, 0.120326],#, 0.120425],
+    r'Median property change': [-1.1246, -1.5761, -1.62873, -1.65457, -1.65872], #-1.66086, -1.65757],
+    r'Percentage improved $\uparrow$': [79.39, 86.31, 87.08, 87.24, 87.01], #86.81, 87.32],
+    r'Latent space distance $\downarrow$': [0.16017, 0.12758, 0.12141, 0.12024, 0.12015], #0.120326, 0.120425],
 }
 
 if __name__ == '__main__':
@@ -24,9 +24,9 @@ if __name__ == '__main__':
     plt.rcParams['axes.linewidth'] = 2
 
     x_label = 'Optimization step'
-    x_values = [1, 5, 10, 20, 40, 80]
+    x_values = [1, 5, 10, 20, 40]
 
-    fig = plt.figure(figsize=(15, 4))
+    fig = plt.figure(figsize=(13, 4))
     for fig_idx, y_key in enumerate(['Median property change', 'Percentage improved', 'Latent space distance']):
         ax = fig.add_subplot(1, 3, fig_idx + 1)
         for key in results_increase.keys():
@@ -44,13 +44,15 @@ if __name__ == '__main__':
                 linestyle='-', linewidth=3,
                 marker='o', markersize=8,
                 label='increase property',
-                color="#BA9219")
+                alpha=0.8,
+                color="#72B051")
         ax.plot(x_values,
                 y_values_decrease,
                 linestyle='-', linewidth=3,
                 marker='o', markersize=8,
                 label='decrease property',
-                color='#0F4D92')
+                alpha=0.8,
+                color='#71BDBE')
         if fig_idx == 1:
             ax.set_ylim([0, 100])
         ax.set_xticks(x_values)
