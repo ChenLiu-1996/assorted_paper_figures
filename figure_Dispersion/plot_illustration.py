@@ -107,7 +107,7 @@ class Arrow3D(FancyArrowPatch):
         self.set_positions((xs[0], ys[0]), (xs[1], ys[1]))
         return np.min(zs)
 
-def plot_covariance(ax):
+def plot_decorrelation(ax):
     num_points_grid = 512
     num_points_on_ellipsoid = 18
     image_scale = 2
@@ -197,11 +197,11 @@ def plot_covariance(ax):
     ax.set_axis_off()
 
     arrow_cov = Line2D([], [], color="#b64342", alpha=0.8,
-                       marker=r'$\rightarrow$', linestyle="None", markersize=35, label="Covariance")
+                       marker=r'$\rightarrow$', linestyle="None", markersize=35, label="Decorrelation")
     ax.legend(handles=[arrow_cov], frameon=False, loc="lower center", fontsize=24, bbox_to_anchor=(0.5, 0.1))
     return ax
 
-def plot_hinge(ax):
+def plot_orthogonalization(ax):
     num_points_grid = 512
 
     xs = np.linspace(-1, 1, num_points_grid)
@@ -252,11 +252,11 @@ def plot_hinge(ax):
             bbox=dict(facecolor="white", alpha=1, edgecolor="none", boxstyle="round,pad=0.2"))
 
     arrow_disp = Line2D([], [], color="#b64342", alpha=0.8,
-                        marker=r'$\leftarrow\rightarrow$', linestyle="None", markersize=50, label="Hinge")
+                        marker=r'$\leftarrow\rightarrow$', linestyle="None", markersize=50, label="Orthogonalization")
     ax.legend(handles=[arrow_disp], frameon=False, loc="lower center", fontsize=24, bbox_to_anchor=(0.5, 0.15))
     return ax
 
-def plot_infonce_l2(ax):
+def plot_l2_repel(ax):
     tau = 0.5
 
     Z = np.array([
@@ -310,7 +310,7 @@ def plot_infonce_l2(ax):
 
     arrow_disp = Line2D([], [], color="#b64342", alpha=0.8,
                         marker=r'$\rightarrow$', linestyle="None", markersize=25,
-                        label=r"InfoNCE$_{\ell_2}$")
+                        label=r"${\ell_2}$-repel")
     arrow_norm = Line2D([0, 1], [0, 0], color="#9a4d8e", alpha=0.8,
                         marker=r'$\rightarrow$', linestyle="None", markersize=25,
                         label="norm regularization")
@@ -325,7 +325,7 @@ def plot_infonce_l2(ax):
     return ax
 
 
-def plot_infonce_cossim(ax):
+def plot_angular_spread(ax):
     num_points_grid = 512
 
     xs = np.linspace(-1, 1, num_points_grid)
@@ -376,7 +376,7 @@ def plot_infonce_cossim(ax):
             bbox=dict(facecolor="white", alpha=1, edgecolor="none", boxstyle="round,pad=0.2"))
 
     arrow_disp = Line2D([], [], color="#b64342", alpha=0.8,
-                        marker=r'$\leftarrow\rightarrow$', linestyle="None", markersize=50, label=r"InfoNCE$_\texttt{cossim}$")
+                        marker=r'$\leftarrow\rightarrow$', linestyle="None", markersize=50, label="Angular spread")
     ax.legend(handles=[arrow_disp], frameon=False, loc="lower center", fontsize=24, bbox_to_anchor=(0.5, 0.145))
     return ax
 
@@ -388,16 +388,16 @@ if __name__ == "__main__":
     fig = plt.figure(figsize=(24, 8))
 
     ax = fig.add_subplot(1, 4, 1)
-    plot_covariance(ax)
+    plot_decorrelation(ax)
 
-    ax = fig.add_subplot(1, 4, 2)
-    plot_hinge(ax)
+    ax = fig.add_subplot(1, 4, 2, projection="3d")
+    plot_l2_repel(ax)
 
-    ax = fig.add_subplot(1, 4, 3, projection="3d")
-    plot_infonce_l2(ax)
+    ax = fig.add_subplot(1, 4, 3)
+    plot_angular_spread(ax)
 
     ax = fig.add_subplot(1, 4, 4)
-    plot_infonce_cossim(ax)
+    plot_orthogonalization(ax)
 
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     fig.tight_layout(pad=2)
