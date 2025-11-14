@@ -14,6 +14,7 @@ DATA = {
          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0],
          [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 1, 2, 1, 0, 2, 3, 0, 1, 2, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0]]
     ),
+    # NOTE: Use `*` to move the label up in the annotation. Each `*` moves it up a bit.
     'dates_llm': {
         '2022-11': 'ChatGPT\n(GPT-3.5)',
         '2023-02': 'Bard',
@@ -61,7 +62,7 @@ def mark_events(ax, time_arr, y_curve, events, dy=0.1):
             ax.annotate(
                 label.replace('*', ''),
                 xy=(x, y),
-                xytext=(x, y + (1 + 0.8 * np.uint8(('*' in label))) * dy * (y1 - y0)),
+                xytext=(x, y + (1 + 0.8 * np.uint8(label.count('*'))) * dy * (y1 - y0)),
                 ha='center',
                 va='bottom',
                 fontsize=11,
