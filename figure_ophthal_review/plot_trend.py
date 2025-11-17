@@ -81,7 +81,7 @@ def plot_curve(fig_name: str):
     colors = ["#9BC8FA", "#ffa8a6", "#13457E", "#850c0a"]
 
     os.makedirs(os.path.dirname(fig_name), exist_ok=True)
-    fig = plt.figure(figsize=(12, 8))
+    fig = plt.figure(figsize=(14, 8))
     num_months = DATA['pub_by_month'].shape[1]
 
     ax = fig.add_subplot(2, 1, 1)
@@ -95,6 +95,7 @@ def plot_curve(fig_name: str):
     mark_events(ax, time_arr, np.cumsum(DATA['pub_by_month'][1, :]), DATA['dates_llm'])
     ax.legend(frameon=False)
     ax.set_xticks(time_arr[2::6])
+    ax.set_ylim([0, 105])
     ax.set_ylabel('Cumulative\nPublication Count\n(Text-only)')
 
     ax = fig.add_subplot(2, 1, 2)

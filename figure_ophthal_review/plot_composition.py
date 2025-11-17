@@ -39,7 +39,7 @@ def plot_heatmap(fig_name: str):
     plt.rcParams['axes.linewidth'] = 2
 
     os.makedirs(os.path.dirname(fig_name), exist_ok=True)
-    fig = plt.figure(figsize=(12, 10))
+    fig = plt.figure(figsize=(14, 10))
 
     ax = fig.add_subplot(1, 1, 1)
     category_count_arr, category_arr = [], []
@@ -62,8 +62,11 @@ def plot_heatmap(fig_name: str):
         item += '\n' + rf'($n={value_arr[:, loc].sum()}$)'
         stage_arr[loc] = item
 
-    sns.heatmap(value_arr, annot=True, fmt='d', cmap='viridis',
-                linewidths=1, linecolor='white', ax=ax, cbar=False)
+    hm = sns.heatmap(value_arr, annot=True, vmin=0, vmax=20, fmt='d', cmap='Reds',
+                linewidths=1, linecolor='white', ax=ax, cbar=True)
+    cbar = hm.collections[0].colorbar
+    cbar.set_ticks([0, 5, 10, 15, 20])
+    cbar.set_ticklabels([0, 5, 10, 15, 20])
     ax.set_yticks(np.arange(len(subcategory_arr)) + 0.5)
     ax.set_yticklabels(subcategory_arr, rotation=0)
     ax.set_xticks(np.arange(len(stage_arr)) + 0.5)
