@@ -24,6 +24,7 @@ if __name__ == '__main__':
     plt.rcParams['axes.spines.right'] = False
     plt.rcParams['axes.spines.top'] = False
     plt.rcParams['axes.linewidth'] = 3
+    plt.rcParams['svg.fonttype'] = 'none'
 
     fig = plt.figure(figsize=(28, 6))
 
@@ -66,7 +67,7 @@ if __name__ == '__main__':
     fig.tight_layout(pad=2)
 
     os.makedirs('./figures/', exist_ok=True)
-    fig.savefig('./figures/bars_comparison_IEDB.png')
+    fig.savefig('./figures/bars_comparison_IEDB.pdf', dpi=600)
     plt.close(fig)
 
 
@@ -120,7 +121,7 @@ if __name__ == '__main__':
 
     fig.tight_layout(pad=2)
     os.makedirs('./figures/', exist_ok=True)
-    fig.savefig('./figures/bars_ablation_IEDB.png')
+    fig.savefig('./figures/bars_ablation_IEDB.pdf', dpi=600)
     plt.close(fig)
 
 
@@ -165,7 +166,7 @@ if __name__ == '__main__':
     fig.tight_layout(pad=2)
 
     os.makedirs('./figures/', exist_ok=True)
-    fig.savefig('./figures/bars_comparison_Cancer.png')
+    fig.savefig('./figures/bars_comparison_Cancer.pdf', dpi=600)
     plt.close(fig)
 
 
@@ -297,5 +298,5 @@ if __name__ == '__main__':
 
     fig.tight_layout(pad=2)
     os.makedirs('./figures/', exist_ok=True)
-    fig.savefig('./figures/bars_ablation_Cancer.png')
+    fig.savefig('./figures/bars_ablation_Cancer.pdf', dpi=600)
     plt.close(fig)
