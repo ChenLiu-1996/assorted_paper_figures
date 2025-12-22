@@ -113,6 +113,7 @@ def plot_curve(fig_name: str):
     ax.legend(frameon=False)
     mark_events(ax, time_arr, np.cumsum(DATA['pub_by_month'][3, :]), DATA['dates_vlm'])
     ax.set_xticks(time_arr[2::6])
+    ax.set_ylim([0, 24])
     ax.set_ylabel('Cumulative\nPublication Count\n(Multimodal)')
 
     fig.tight_layout(pad=2)
