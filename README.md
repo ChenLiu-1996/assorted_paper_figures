@@ -31,7 +31,3 @@ Research areas: Machine Learning (Manifold Learning, Dynamics, LLM geometry, Mul
 
 ### Miscellaneous
 <img src="figure_Dispersion/figures/illustration.png" width="800">
-<img src="figure_Cflows/figures/diffusion_swiss_roll.png" width="800">
-
-
-### Miscellaneous
