@@ -2,7 +2,7 @@
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Chen-blue)](https://www.linkedin.com/in/chenliu1996/)
 [![Twitter Follow](https://img.shields.io/twitter/follow/Chen.svg?style=social)](https://x.com/ChenLiu_1996)
 
-This is a centralized repository of my own **Python scripts for high-quality academic figures**.
+This is a centralized repository of my own **Python scripts for high-quality figures**.
 
 I am [Chen Liu](https://chenliu-1996.github.io/), a Computer Science PhD Candidate at Yale University.
 
