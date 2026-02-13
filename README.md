@@ -6,8 +6,6 @@ This is a centralized repository of my own **Python scripts for high-quality fig
 
 I am [Chen Liu](https://chenliu-1996.github.io/), a Computer Science PhD Candidate at Yale University.
 
-Research areas: Machine Learning (Manifold Learning, Dynamics, LLM geometry, Multimodal, Self-Supervision).
-
 
 ### Bar plots for quantitative comparison
 <img src="figure_ImmunoStruct/figures/bars_comparison_IEDB.png" width="800">
