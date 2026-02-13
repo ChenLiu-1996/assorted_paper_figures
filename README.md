@@ -23,7 +23,7 @@ Research areas: Machine Learning (Manifold Learning, Dynamics, LLM geometry, Mul
 <img src="figure_ophthal_review/figures/trend_by_month.png" width="800">
 
 ### Heat maps
-<img src="figures/results_comparison_optimization.png" width="800">
+<img src="figure_RNAGenScape/figures/results_comparison_optimization.png" width="800">
 
 ### Curve plots
 <img src="figure_FPGM/figures/freq_prior.png" width="800">
