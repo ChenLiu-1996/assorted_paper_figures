@@ -5,7 +5,7 @@
   [![Twitter Follow](https://img.shields.io/twitter/follow/Chen.svg?style=social)](https://x.com/ChenLiu_1996)
 </div>
 
-This is a centralized repository of my own figure making scripts.
+This is a centralized repository of my own **Python scripts for high-quality academic figures**.
 
 I am [Chen Liu](https://chenliu-1996.github.io/), a Computer Science PhD Candidate at Yale University.
 
@@ -14,6 +14,7 @@ Research areas: Machine Learning (Manifold Learning, Dynamics, LLM geometry, Mul
 
 ### Bar plots for quantitative comparison
 <img src="figure_ImmunoStruct/figures/bars_comparison_IEDB.png" width="800">
+
 <img src="figure_CellSpliceNet/figures/comparison.png" width="800">
 
 ### Bar plots for composition breakdown
@@ -31,3 +32,6 @@ Research areas: Machine Learning (Manifold Learning, Dynamics, LLM geometry, Mul
 ### Miscellaneous
 <img src="figure_Dispersion/figures/illustration.png" width="800">
 <img src="figure_Cflows/figures/diffusion_swiss_roll.png" width="800">
+
+
+### Miscellaneous
