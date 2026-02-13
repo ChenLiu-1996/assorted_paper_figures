@@ -1,9 +1,6 @@
-<div align="center">
-  <h1><br>Assorted Paper Figures</h1>
-  
-  [![LinkedIn](https://img.shields.io/badge/LinkedIn-Chen-blue)](https://www.linkedin.com/in/chenliu1996/)
-  [![Twitter Follow](https://img.shields.io/twitter/follow/Chen.svg?style=social)](https://x.com/ChenLiu_1996)
-</div>
+# Assorted Paper Figures
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Chen-blue)](https://www.linkedin.com/in/chenliu1996/)
+[![Twitter Follow](https://img.shields.io/twitter/follow/Chen.svg?style=social)](https://x.com/ChenLiu_1996)
 
 This is a centralized repository of my own **Python scripts for high-quality academic figures**.
 
