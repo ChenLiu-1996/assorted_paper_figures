@@ -376,7 +376,7 @@ def plot_angular_spread(ax):
             bbox=dict(facecolor="white", alpha=1, edgecolor="none", boxstyle="round,pad=0.2"))
 
     arrow_disp = Line2D([], [], color="#b64342", alpha=0.8,
-                        marker=r'$\leftarrow\rightarrow$', linestyle="None", markersize=50, label="Angular spread")
+                        marker=r'$\leftarrow\rightarrow$', linestyle="None", markersize=50, label="Dispersion loss")
     ax.legend(handles=[arrow_disp], frameon=False, loc="lower center", fontsize=24, bbox_to_anchor=(0.5, 0.145))
     return ax
 
@@ -388,13 +388,13 @@ if __name__ == "__main__":
     fig = plt.figure(figsize=(24, 8))
 
     ax = fig.add_subplot(1, 4, 1)
+    plot_angular_spread(ax)
+
+    ax = fig.add_subplot(1, 4, 2)
     plot_decorrelation(ax)
 
-    ax = fig.add_subplot(1, 4, 2, projection="3d")
+    ax = fig.add_subplot(1, 4, 3, projection="3d")
     plot_l2_repel(ax)
-
-    ax = fig.add_subplot(1, 4, 3)
-    plot_angular_spread(ax)
 
     ax = fig.add_subplot(1, 4, 4)
     plot_orthogonalization(ax)

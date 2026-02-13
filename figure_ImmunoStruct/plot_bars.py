@@ -67,7 +67,7 @@ if __name__ == '__main__':
     fig.tight_layout(pad=2)
 
     os.makedirs('./figures/', exist_ok=True)
-    fig.savefig('./figures/bars_comparison_IEDB.pdf', dpi=600)
+    fig.savefig('./figures/bars_comparison_IEDB.png', dpi=600)
     plt.close(fig)
 
 
@@ -121,7 +121,7 @@ if __name__ == '__main__':
 
     fig.tight_layout(pad=2)
     os.makedirs('./figures/', exist_ok=True)
-    fig.savefig('./figures/bars_ablation_IEDB.pdf', dpi=600)
+    fig.savefig('./figures/bars_ablation_IEDB.png', dpi=600)
     plt.close(fig)
 
 
@@ -166,94 +166,8 @@ if __name__ == '__main__':
     fig.tight_layout(pad=2)
 
     os.makedirs('./figures/', exist_ok=True)
-    fig.savefig('./figures/bars_comparison_Cancer.pdf', dpi=600)
+    fig.savefig('./figures/bars_comparison_Cancer.png', dpi=600)
     plt.close(fig)
-
-
-    # fig = plt.figure(figsize=(28, 6))
-
-    # ax = fig.add_subplot(1, 4, 2)
-    # # NOTE: Hard-coding for 4 + 4 bars.
-    # ax.bar(range(len(data_ablation_Cancer['mean'])),
-    #        data_ablation_Cancer['mean'][:, 0],
-    #        yerr=data_ablation_Cancer['std'][:, 0],
-    #        capsize=5,
-    #        hatch=['/'] * 4 + [''] * 4,
-    #        color=[(0.215686, 0.458824, 0.729412, alpha) for alpha in [0.25, 0.5, 0.75, 1.0]] * 2,
-    #        label=[None, None, 'No Transfer Learning', None, None, None, 'Transfer Learning', None])
-    # # for i in range(len(data_comparison_Cancer['mean']) - 1):
-    # #     ax.hlines(data_comparison_Cancer['mean'][i, 0],
-    # #               xmin=-1, xmax=len(data_comparison_Cancer['mean'])-1,
-    # #               linestyles='-', colors=data_comparison_Cancer['colors'][i],
-    # #               linewidth=2, label=data_comparison_Cancer['methods'][i])
-    # handles, labels = ax.get_legend_handles_labels()
-    # ax.set_xticks(range(len(data_ablation_Cancer['coeffs'])))
-    # ax.set_xticklabels(['    ' + format(coeff, '.0e') if coeff != 0 else coeff
-    #                     for (_, coeff) in data_ablation_Cancer['coeffs']], rotation=90)
-    # ax.set_xlabel(r'Contrastive Coefficient $\lambda_\text{CW}$')
-    # # ax.set_xlim([-0.8, len(data_comparison_Cancer['mean'])-1.2])
-    # ax.set_ylim([0.65, 0.82])
-    # ax.set_ylabel(data_ablation_Cancer['metrics'][0], fontsize=32)
-
-    # ax = fig.add_subplot(1, 4, 3)
-    # ax.bar(range(len(data_ablation_Cancer['mean'])),
-    #        data_ablation_Cancer['mean'][:, 1],
-    #        yerr=data_ablation_Cancer['std'][:, 1],
-    #        capsize=5,
-    #        hatch=['/'] * 4 + [''] * 4,
-    #        color=[(0.215686, 0.458824, 0.729412, alpha) for alpha in [0.25, 0.5, 0.75, 1.0]] * 2)
-    # # for i in range(len(data_comparison_Cancer['mean']) - 1):
-    # #     ax.hlines(data_comparison_Cancer['mean'][i, 1],
-    # #               xmin=-1, xmax=len(data_comparison_Cancer['mean'])-1,
-    # #               linestyles='-', colors=data_comparison_Cancer['colors'][i],
-    # #               linewidth=3)
-    # ax.set_xticks(range(len(data_ablation_Cancer['coeffs'])))
-    # ax.set_xticklabels(['    ' + format(coeff, '.0e') if coeff != 0 else coeff
-    #                     for (_, coeff) in data_ablation_Cancer['coeffs']], rotation=90)
-    # ax.set_xlabel(r'Contrastive Coefficient $\lambda_\text{CW}$')
-    # # ax.set_xlim([-0.8, len(data_comparison_Cancer['mean'])-1.2])
-    # ax.set_ylim([0.28, 0.52])
-    # ax.set_ylabel(data_ablation_Cancer['metrics'][1], fontsize=32)
-
-    # ax = fig.add_subplot(1, 4, 4)
-    # ax.bar(range(len(data_ablation_Cancer['mean'])),
-    #        data_ablation_Cancer['mean'][:, 2],
-    #        yerr=data_ablation_Cancer['std'][:, 2],
-    #        capsize=5,
-    #        hatch=['/'] * 4 + [''] * 4,
-    #        color=[(0.215686, 0.458824, 0.729412, alpha) for alpha in [0.25, 0.5, 0.75, 1.0]] * 2)
-    # # for i in range(len(data_comparison_Cancer['mean']) - 1):
-    # #     ax.hlines(data_comparison_Cancer['mean'][i, 2],
-    # #               xmin=-1, xmax=len(data_comparison_Cancer['mean'])-1,
-    # #               linestyles='-', colors=data_comparison_Cancer['colors'][i],
-    # #               linewidth=3)
-    # ax.set_xticks(range(len(data_ablation_Cancer['coeffs'])))
-    # ax.set_xticklabels(['    ' + format(coeff, '.0e') if coeff != 0 else coeff
-    #                     for (_, coeff) in data_ablation_Cancer['coeffs']], rotation=90)
-    # ax.set_xlabel(r'Contrastive Coefficient $\lambda_\text{CW}$')
-    # # ax.set_xlim([-0.8, len(data_comparison_Cancer['mean'])-1.2])
-    # ax.set_ylim([0.26, 0.44])
-    # ax.set_ylabel(data_ablation_Cancer['metrics'][2], fontsize=32)
-
-    # ax = fig.add_subplot(1, 4, 1)
-    # ax.bar(range(len(data_ablation_Cancer['mean'])),
-    #        data_ablation_Cancer['mean'].mean(-1),
-    #        capsize=5,
-    #        hatch=['/'] * 4 + [''] * 4,
-    #        color=[(0.215686, 0.458824, 0.729412, alpha) for alpha in [0.25, 0.5, 0.75, 1.0]] * 2)
-    # ax.set_xticks(range(len(data_ablation_Cancer['coeffs'])))
-    # ax.set_xticklabels(['    ' + format(coeff, '.0e') if coeff != 0 else coeff
-    #                     for (_, coeff) in data_ablation_Cancer['coeffs']], rotation=90)
-    # ax.set_xlabel(r'Contrastive Coefficient $\lambda_\text{CW}$')
-    # # ax.set_xlim([-0.8, len(data_comparison_Cancer['mean'])-1.2])
-    # ax.set_ylim([0.46, 0.52])
-    # ax.set_ylabel(r'$\frac{\text{AUROC} + \text{AUPRC} + \text{Mean PPVn}}{3}$', fontsize=24)
-
-    # # ax = fig.add_subplot(1, 4, 4)
-    # # ax.legend(handles, labels)
-    # # ax.set_axis_off()
-
-    # fig.tight_layout(pad=2)
 
     fig = plt.figure(figsize=(28, 6))
 
@@ -298,5 +212,5 @@ if __name__ == '__main__':
 
     fig.tight_layout(pad=2)
     os.makedirs('./figures/', exist_ok=True)
-    fig.savefig('./figures/bars_ablation_Cancer.pdf', dpi=600)
+    fig.savefig('./figures/bars_ablation_Cancer.png', dpi=600)
     plt.close(fig)
