@@ -1,8 +1,8 @@
 # Assorted Paper Figures
 
-This is a centralized place for some of my figure making scripts.
+This is a centralized storage of my own figure making scripts.
 
-## Demo of figures
+
 ### Bar plots for quantitative comparison
 <img src="figure_ImmunoStruct/figures/bars_comparison_IEDB.png" width="800">
 <img src="figure_CellSpliceNet/figures/comparison.png" width="800">
