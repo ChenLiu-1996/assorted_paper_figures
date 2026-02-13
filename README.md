@@ -1,6 +1,15 @@
-# Assorted Paper Figures
+<div align="center">
+  <h1><br>Assorted Paper Figures</h1>
+  
+  [![LinkedIn](https://img.shields.io/badge/LinkedIn-Chen-blue)](https://www.linkedin.com/in/chenliu1996/)
+  [![Twitter Follow](https://img.shields.io/twitter/follow/Chen.svg?style=social)](https://x.com/ChenLiu_1996)
+</div>
 
-This is a centralized storage of my own figure making scripts.
+This is a centralized repository of my own figure making scripts.
+
+I am [Chen Liu](https://chenliu-1996.github.io/), a Computer Science PhD Candidate at Yale University.
+
+Research areas: Machine Learning (Manifold Learning, Dynamics, LLM geometry, Multimodal, Self-Supervision).
 
 
 ### Bar plots for quantitative comparison
