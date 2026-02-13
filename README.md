@@ -19,11 +19,14 @@ Research areas: Machine Learning (Manifold Learning, Dynamics, LLM geometry, Mul
 ### Bar plots for composition breakdown
 <img src="figure_brainteaser/figures/brute_force.png" width="800">
 
-### Curve plots
-<img src="figure_FPGM/figures/freq_prior.png" width="800">
-
 ### Trend plots
 <img src="figure_ophthal_review/figures/trend_by_month.png" width="800">
+
+### Heat maps
+<img src="figures/results_comparison_optimization.png" width="800">
+
+### Curve plots
+<img src="figure_FPGM/figures/freq_prior.png" width="800">
 
 ### Miscellaneous
 <img src="figure_Dispersion/figures/illustration.png" width="800">
