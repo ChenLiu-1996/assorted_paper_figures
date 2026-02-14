@@ -24,5 +24,16 @@ I am [Chen Liu](https://chenliu-1996.github.io/), a Computer Science PhD Candida
 ### 3D spheres
 <img src="figure_Dispersion/figures/illustration.png" width="800">
 
-### Miscellaneous
-<img src="assets/merged.gif" width="800">
+### Miscellaneous: non-pure-Python figures
+These are some of my figures made partially but not purely in Python. Including them to appreciate the time I spent on them.
+
+<img src="assets/ImmunoStruct_schematic.png" width="400">
+<br><img src="assets/ImmunoStruct_contrastive.png" width="400">
+<br><img src="assets/ImmunoStruct_results_IEDB.png" width="400">
+<br><img src="assets/ImmunoStruct_results_CEDAR.png" width="400">
+<br><img src="assets/Dispersion_motivation.png" width="400">
+<br><img src="assets/Dispersion_observation.png" width="400">
+<br><img src="assets/Dispersion_observation_distillation.png" width="400">
+<br><img src="assets/CUTS_architecture.png" width="400">
+<br><img src="assets/RNAGenScape_schematic.png" width="400">
+<br><img src="assets/DiffKillR_results_diffeo.png" width="400">
