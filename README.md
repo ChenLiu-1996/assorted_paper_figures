@@ -33,6 +33,8 @@ These figures were made partially in Python. I included them to acknowledge the 
 <br><img src="assets/RNAGenScape_schematic.png" width="400"><img src="assets/Dispersion_motivation.png" width="400">
 <br><img src="assets/Dispersion_observation.png" width="400"><img src="assets/Dispersion_observation_distillation.png" width="400">
 
+<br>
+
 ## LLM skill integration (credit to my friend [Shan Chen](https://shanchen.dev/))
 
 <details>
@@ -65,6 +67,63 @@ Load and use `skills/scientific-figure-pro/scripts/scientific_figure_pro.py` (ap
 Input data: <describe your data or paste arrays>.
 Output files: <name>.png and <name>.pdf.
 Keep the style consistent with this repository.
+```
+
+</details>
+
+
+## Related Papers
+<details>
+<summary>ImmunoStruct</summary>
+
+```bibtex
+@article{givechian2025immunostruct,
+  title={ImmunoStruct enables multimodal deep learning for immunogenicity prediction},
+  author={Givechian, Kevin Bijan and Rocha, Jo{\~a}o Felipe and Liu, Chen and Yang, Edward and Tyagi, Sidharth and Greene, Kerrie and Ying, Rex and Caron, Etienne and Iwasaki, Akiko and Krishnaswamy, Smita},
+  journal={Nature Machine Intelligence},
+  pages={1--14},
+  year={2025},
+  publisher={Nature Publishing Group UK London}
+}
+```
+
+</details>
+<details>
+<summary>Dispersion</summary>
+
+```bibtex
+@article{liu2026dispersion,
+  title={Dispersion Loss Counteracts Embedding Condensation and Improves Generalization in Small Language Models},
+  author={Liu, Chen and Sun, Xingzhi and Xiao, Xi and Van Tassel, Alexandre and Xu, Ke and Reimann, Kristof and Liao, Danqi and Gerstein, Mark and Wang, Tianyang and Wang, Xiao and others},
+  journal={arXiv preprint arXiv:2602.00217},
+  year={2026}
+}
+```
+
+</details>
+<details>
+<summary>RNAGenScape</summary>
+
+```bibtex
+@article{liao2025rnagenscape,
+  title={RNAGenScape: Property-Guided, Optimized Generation of mRNA Sequences with Manifold Langevin Dynamics},
+  author={Liao, Danqi and Liu, Chen and Sun, Xingzhi and Tang, Di{\'e} and Wang, Haochen and Youlten, Scott and Gopinath, Srikar Krishna and Lee, Haejeong and Strayer, Ethan C and Giraldez, Antonio J and others},
+  journal={arXiv preprint arXiv:2510.24736},
+  year={2025}
+}
+```
+
+</details>
+<details>
+<summary>brainteaser</summary>
+
+```bibtex
+@article{han2025creativity,
+  title={Creativity or Brute Force? Using Brainteasers as a Window into the Problem-Solving Abilities of Large Language Models},
+  author={Han, Simeng and Dai, Howard and Xia, Stephen and Zhang, Grant and Liu, Chen and Chen, Lichang and Nguyen, Hoang Huy and Mei, Hongyuan and Mao, Jiayuan and McCoy, R. Thomas},
+  journal={Advances in neural information processing systems},
+  year={2025}
+}
 ```
 
 </details>
