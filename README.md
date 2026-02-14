@@ -21,5 +21,7 @@ I am [Chen Liu](https://chenliu-1996.github.io/), a Computer Science PhD Candida
 ### Heat maps
 <img src="figure_RNAGenScape/figures/results_comparison_optimization.png" width="800">
 
-### Miscellaneous
+### 3D spheres
 <img src="figure_Dispersion/figures/illustration.png" width="800">
+
+### Miscellaneous
