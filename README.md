@@ -29,6 +29,5 @@ These are some of my figures made partially but not purely in Python. Including 
 
 <img src="assets/ImmunoStruct_schematic.png" width="400"><img src="assets/ImmunoStruct_contrastive.png" width="400">
 <br><img src="assets/ImmunoStruct_results_IEDB.png" width="400"><img src="assets/ImmunoStruct_results_CEDAR.png" width="400">
-<br><img src="assets/DiffKillR_results_diffeo.png" width="400"><img src="assets/Dispersion_motivation.png" width="400">
+<br><img src="assets/RNAGenScape_schematic.png" width="400"><img src="assets/Dispersion_motivation.png" width="400">
 <br><img src="assets/Dispersion_observation.png" width="400"><img src="assets/Dispersion_observation_distillation.png" width="400">
-<br><img src="assets/CUTS_architecture.png" width="400"><img src="assets/RNAGenScape_schematic.png" width="400">
