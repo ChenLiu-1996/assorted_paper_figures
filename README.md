@@ -95,7 +95,7 @@ Keep the style consistent with this repository.
 <summary>Dispersion</summary>
 
 [![arXiv](https://img.shields.io/badge/arXiv-Dispersion-firebrick)](https://arxiv.org/abs/2602.00217) 
-[![PDF](https://img.shields.io/badge/PDF-silver)](https://arxiv.org/pdf/2602.00217)
+[![PDF](https://img.shields.io/badge/PDF-DADBDD)](https://arxiv.org/pdf/2602.00217)
 ```bibtex
 @article{liu2026dispersion,
   title={Dispersion Loss Counteracts Embedding Condensation and Improves Generalization in Small Language Models},
@@ -110,7 +110,7 @@ Keep the style consistent with this repository.
 <summary>RNAGenScape</summary>
 
 [![arXiv](https://img.shields.io/badge/arXiv-RNAGenScape-firebrick)](https://arxiv.org/abs/2510.24736) 
-[![PDF](https://img.shields.io/badge/PDF-silver)](https://arxiv.org/pdf/2510.24736)
+[![PDF](https://img.shields.io/badge/PDF-DADBDD)](https://arxiv.org/pdf/2510.24736)
 ```bibtex
 @article{liao2025rnagenscape,
   title={RNAGenScape: Property-Guided, Optimized Generation of mRNA Sequences with Manifold Langevin Dynamics},
@@ -128,7 +128,7 @@ Keep the style consistent with this repository.
 [![NeurIPS 2025](https://img.shields.io/badge/NeurIPS_2025-purple)](https://openreview.net/pdf?id=3oQDkmW72a)
 [![HuggingFace Dataset](https://img.shields.io/badge/HuggingFace_Dataset-orange)](https://huggingface.co/datasets/ChenLiu1996/Brainteaser)
 [![arXiv](https://img.shields.io/badge/arXiv-brainteaser-firebrick)](https://arxiv.org/abs/2505.10844) 
-[![PDF](https://img.shields.io/badge/PDF-silver)](https://arxiv.org/pdf/2505.10844)
+[![PDF](https://img.shields.io/badge/PDF-DADBDD)](https://arxiv.org/pdf/2505.10844)
 ```bibtex
 @article{han2025creativity,
   title={Creativity or Brute Force? Using Brainteasers as a Window into the Problem-Solving Abilities of Large Language Models},
