@@ -33,6 +33,8 @@ These figures were made partially in Python. I included them to acknowledge the 
 <br><img src="assets/RNAGenScape_schematic.png" width="400"><img src="assets/Dispersion_motivation.png" width="400">
 <br><img src="assets/Dispersion_observation.png" width="400"><img src="assets/Dispersion_observation_distillation.png" width="400">
 
+## LLM skill integration (credit to my friend [Shan Chen](https://shanchen.dev/))
+
 <details>
 <summary><strong>How to use the Scientific Figure Pro skill (click to expand)</strong></summary>
 
