@@ -1,19 +1,40 @@
-"""High-level helper utilities for publication-style scientific figures.
+"""Publication-quality plotting utilities for scientific figures.
 
-This module codifies the dominant design theory extracted from the figures4papers repository.
+This module provides a suite of high-level wrappers around matplotlib to produce 
+consistent, submission-ready scientific figures. It enforces a unified aesthetic 
+(Helvetica-like fonts, high-contrast palettes, minimal spines) and handles 
+robust export workflows for LaTeX and digital formats.
+
+Standard usage involves:
+1. Setting the global style with `apply_publication_style`.
+2. Creating a figure/axes layout with `create_subplots`.
+3. Populating axes using specialized `make_*` helpers.
+4. Exporting via `finalize_figure`.
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Sequence
+import logging
+from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Any, Final, Sequence, TYPE_CHECKING
 
 import matplotlib.pyplot as plt
 import numpy as np
 
+if TYPE_CHECKING:
+    from matplotlib.axes import Axes
+    from matplotlib.container import BarContainer
+    from matplotlib.figure import Figure
+    from matplotlib.image import AxesImage
+    import numpy.typing as npt
 
-PALETTE = {
+# Configure logger
+logger = logging.getLogger(__name__)
+
+# --- Aesthetics & Constants ---
+
+PALETTE: Final[dict[str, str]] = {
     "blue_main": "#0F4D92",
     "blue_secondary": "#3775BA",
     "green_1": "#DDF3DE",
@@ -28,7 +49,7 @@ PALETTE = {
     "violet": "#9A4D8E",
 }
 
-GROUPED_SERIES_COLORS = [
+DEFAULT_COLORS: Final[list[str]] = [
     PALETTE["blue_main"],
     PALETTE["green_3"],
     PALETTE["red_strong"],
@@ -37,191 +58,358 @@ GROUPED_SERIES_COLORS = [
     PALETTE["neutral"],
 ]
 
+_VECTOR_FORMATS: Final[set[str]] = {"pdf", "svg", "eps"}
+_RASTER_FORMATS: Final[set[str]] = {"png", "jpg", "jpeg", "tif", "tiff"}
+_SUPPORTED_FORMATS: Final[set[str]] = _VECTOR_FORMATS | _RASTER_FORMATS
+
 
 @dataclass(frozen=True)
 class FigureStyle:
+    """Configuration for global matplotlib rcParams.
+
+    Attributes:
+        font_size: Base font size in points.
+        axes_linewidth: Width of the axis spines.
+        use_tex: Whether to use LaTeX for text rendering.
+        font_family: Priority list of font families.
+    """
+
     font_size: int = 16
     axes_linewidth: float = 2.5
     use_tex: bool = False
+    font_family: tuple[str, ...] = ("DejaVu Sans", "Helvetica", "Arial", "sans-serif")
 
 
-def apply_publication_style(style: FigureStyle = FigureStyle()) -> None:
-    """Apply repository-aligned matplotlib rcParams."""
-    plt.rcParams.update(
-        {
-            "text.usetex": style.use_tex,
-            "font.family": ["Arial", "Helvetica", "DejaVu Sans", "sans-serif"],
-            "font.size": style.font_size,
-            "axes.spines.right": False,
-            "axes.spines.top": False,
-            "axes.linewidth": style.axes_linewidth,
-            "legend.frameon": False,
-            "svg.fonttype": "none",
-        }
-    )
+# --- Internal Helpers ---
+
+def _require(condition: bool, message: str) -> None:
+    """Internal assertion-style validator."""
+    if not condition:
+        raise ValueError(f"[scientific_figure_pro] {message}")
 
 
-def finalize_figure(fig: plt.Figure, out_path: str, dpi: int = 300, pad: float = 2.0) -> None:
-    """Finalize and save using repository defaults, ensuring no cropping."""
-    save_path = Path(out_path)
-    save_path.parent.mkdir(parents=True, exist_ok=True)
-    
-    # Use tight_layout with specified padding
-    fig.tight_layout(pad=pad)
-    
-    # Save with bbox_inches='tight' and pad_inches=0.1 to prevent cropping
-    fig.savefig(str(save_path), dpi=dpi, bbox_inches='tight', pad_inches=0.1)
+def _as_1d_array(name: str, values: Any) -> npt.NDArray[np.float64]:
+    """Ensures input is a 1D numpy array of floats."""
+    arr = np.asarray(values, dtype=np.float64)
+    _require(arr.ndim == 1, f"'{name}' must be 1D, got shape {arr.shape}")
+    _require(arr.size > 0, f"'{name}' cannot be empty")
+    return arr
 
 
-def make_sphere_illustration(ax: plt.Axes, light_dir: np.ndarray | None = None) -> None:
+def _as_2d_array(name: str, values: Any) -> npt.NDArray[np.float64]:
+    """Ensures input is a 2D numpy array of floats."""
+    arr = np.asarray(values, dtype=np.float64)
+    _require(arr.ndim == 2, f"'{name}' must be 2D, got shape {arr.shape}")
+    _require(arr.size > 0, f"'{name}' cannot be empty")
+    return arr
+
+
+# --- Core API ---
+
+def apply_publication_style(style: FigureStyle | None = None) -> None:
+    """Configures matplotlib with publication-ready defaults.
+
+    Args:
+        style: Optional custom FigureStyle object. Defaults to standard.
     """
-    Draw a shaded 3D-effect sphere using a meshgrid and intensity map.
-    Discovery from repo: This uses a 2D imshow with a calculated mask and shading
-    to simulate a 3D sphere with publication-grade lighting.
+    s = style or FigureStyle()
+
+    plt.rcParams.update({
+        "text.usetex": s.use_tex,
+        "font.family": "sans-serif",
+        "font.sans-serif": list(s.font_family),
+        "font.size": s.font_size,
+        "axes.labelsize": s.font_size,
+        "axes.titlesize": s.font_size + 2,
+        "axes.linewidth": s.axes_linewidth,
+        "axes.spines.right": False,
+        "axes.spines.top": False,
+        "legend.frameon": False,
+        "legend.fontsize": s.font_size - 2,
+        "xtick.direction": "out",
+        "ytick.direction": "out",
+        "svg.fonttype": "none",
+        "pdf.fonttype": 42,
+        "ps.fonttype": 42,
+        "savefig.bbox": "tight",
+        "savefig.transparent": False,
+    })
+    logger.debug("Applied publication style configuration.")
+
+
+def create_subplots(
+    nrows: int = 1,
+    ncols: int = 1,
+    figsize: tuple[float, float] | None = None,
+    **kwargs: Any
+) -> tuple[Figure, npt.NDArray[np.object_]]:
+    """Creates a figure and a flattened array of axes.
+
+    Args:
+        nrows: Number of rows in the grid.
+        ncols: Number of columns in the grid.
+        figsize: (width, height) in inches.
+        **kwargs: Additional arguments passed to `plt.subplots`.
+
+    Returns:
+        A tuple of (Figure, flat array of Axes).
     """
-    res = 512
-    xs = np.linspace(-1, 1, res)
-    ys = np.linspace(-1, 1, res)
-    x, y = np.meshgrid(xs, ys)
-    r2 = x**2 + y**2
-    mask = r2 <= 1.0
+    _require(nrows > 0 and ncols > 0, "Grid dimensions must be positive integers.")
     
-    z = np.zeros_like(x)
-    z[mask] = np.sqrt(1.0 - r2[mask])
+    fig, axes = plt.subplots(nrows, ncols, figsize=figsize, **kwargs)
+    return fig, np.atleast_1d(np.array(axes, dtype=object)).flatten()
+
+
+def finalize_figure(
+    fig: Figure,
+    out_path: str | Path,
+    formats: Sequence[str] | None = None,
+    dpi: int = 300,
+    close: bool = True,
+    pad: float = 0.05,
+    **kwargs: Any
+) -> list[Path]:
+    """Saves the figure in multiple formats and closes it.
+
+    If no formats are provided, it defaults to (pdf, svg, eps) unless the out_path
+    already contains an extension.
+
+    Args:
+        fig: The matplotlib Figure object.
+        out_path: Filename or directory path.
+        formats: List of extensions (e.g., ['png', 'pdf']).
+        dpi: Resolution for raster formats.
+        close: Whether to call plt.close(fig) after saving.
+        pad: Padding in inches.
+        **kwargs: Passed to fig.savefig.
+
+    Returns:
+        List of Paths to the saved files.
+    """
+    path = Path(out_path)
+    exts = formats
     
-    # Normal vectors
-    norm = np.sqrt(x**2 + y**2 + z**2) + 1e-6
-    nx, ny, nz = x/norm, y/norm, z/norm
+    if not exts:
+        exts = [path.suffix.lstrip(".")] if path.suffix else ["pdf", "svg", "eps"]
     
-    if light_dir is None:
-        light_dir = np.array([-0.5, 0.5, 0.8])
-    light_dir = light_dir / np.linalg.norm(light_dir)
+    base = path.with_suffix("") if path.suffix else path
+    base.parent.mkdir(parents=True, exist_ok=True)
+
+    saved: list[Path] = []
+    for ext in exts:
+        ext = ext.lower().strip(".")
+        _require(ext in _SUPPORTED_FORMATS, f"Unsupported format: {ext}")
+        
+        target = base.with_suffix(f".{ext}")
+        save_params = {"format": ext, "bbox_inches": "tight", "pad_inches": pad}
+        if ext in _RASTER_FORMATS:
+            save_params["dpi"] = dpi
+        save_params.update(kwargs)
+        
+        fig.savefig(target, **save_params)
+        saved.append(target)
     
-    intensity = np.maximum(0.0, nx*light_dir[0] + ny*light_dir[1] + nz*light_dir[2])
-    ambient = 0.3
-    shade = np.clip(ambient + 0.9*intensity, 0, 1)
+    if close:
+        plt.close(fig)
     
-    img = np.ones((res, res))
-    img[mask] = shade[mask]
-    
-    ax.imshow(img, cmap='gray', origin='lower', extent=[-1, 1, -1, 1], vmin=0, vmax=1, alpha=0.5)
-    ax.set_axis_off()
+    logger.info(f"Saved figure to: {', '.join(p.name for p in saved)}")
+    return saved
 
 
-def annotate_bars(ax: plt.Axes, bars: plt.BarContainer, fontsize: int = 12) -> None:
-    """Add numeric labels above bars for precision reading."""
-    for bar in bars:
-        height = bar.get_height()
-        ax.text(bar.get_x() + bar.get_width()/2., height + 0.002,
-                f'{height:.2f}', ha='center', va='bottom', fontsize=fontsize)
-
-
-def make_grouped_bar(
-    ax: plt.Axes,
-    categories: Sequence[str],
-    series: Sequence[Sequence[float]],
-    labels: Sequence[str],
-    colors: Sequence[str] | None = None,
-    y_label: str = "Score",
-) -> None:
-    """Draw grouped bars with black edges and publication-safe styling."""
-    if colors is None:
-        colors = GROUPED_SERIES_COLORS
-
-    values = np.asarray(series, dtype=float)
-    n_series, n_cats = values.shape
-    x = np.arange(n_cats)
-    width = 0.8 / n_series
-
-    for i in range(n_series):
-        ax.bar(
-            x + (i - (n_series - 1) / 2) * width,
-            values[i],
-            width=width,
-            color=colors[i % len(colors)],
-            edgecolor="black",
-            linewidth=1.5,
-            label=labels[i],
-        )
-
-    ax.set_xticks(x)
-    ax.set_xticklabels(categories, rotation=0)
-    ax.set_ylabel(y_label)
-    ax.set_ylim(0, max(1.0, float(values.max()) * 1.12))
-    ax.legend(loc="upper left")
-
+# --- Specialized Plotting Helpers ---
 
 def make_trend(
-    ax: plt.Axes,
+    ax: Axes,
     x: Sequence[float],
     y_series: Sequence[Sequence[float]],
     labels: Sequence[str],
     colors: Sequence[str] | None = None,
-    y_label: str = "Value",
-    x_label: str = "Step",
-    show_shadow: bool = True,
+    ylabel: str | None = None,
+    xlabel: str | None = None,
+    show_shadow: bool = True
 ) -> None:
-    """Draw repository-style trend lines with soft shadows/error bands."""
-    if colors is None:
-        colors = [PALETTE["blue_main"], PALETTE["red_strong"], PALETTE["green_3"], PALETTE["teal"]]
-
-    x_arr = np.asarray(x, dtype=float)
+    """Renders multiple line trends with optional confidence shadows."""
+    x_arr = _as_1d_array("x", x)
+    color_map = colors or DEFAULT_COLORS
+    
     for i, y in enumerate(y_series):
-        y_arr = np.asarray(y)
-        color = colors[i % len(colors)]
+        y_arr = _as_1d_array(f"y_series[{i}]", y)
+        _require(len(x_arr) == len(y_arr), f"Length mismatch in series {i}")
         
+        color = color_map[i % len(color_map)]
         if show_shadow:
-            for offset, alpha in zip([0.02, 0.04, 0.06], [0.15, 0.1, 0.05]):
-                ax.fill_between(x_arr, y_arr - offset, y_arr + offset, color=color, alpha=alpha, lw=0)
+            span = np.ptp(y_arr) or 1.0
+            ax.fill_between(x_arr, y_arr - 0.03*span, y_arr + 0.03*span, 
+                           color=color, alpha=0.1, lw=0)
         
-        ax.plot(x_arr, y_arr, linewidth=3, alpha=0.9, color=color, label=labels[i])
+        ax.plot(x_arr, y_arr, label=labels[i], color=color, lw=2.5, alpha=0.9)
 
-    ax.set_xlabel(x_label)
-    ax.set_ylabel(y_label)
-    ax.legend(loc="best", frameon=False)
+    if xlabel: ax.set_xlabel(xlabel)
+    if ylabel: ax.set_ylabel(ylabel)
+    ax.legend()
+
+
+def make_grouped_bar(
+    ax: Axes,
+    categories: Sequence[str],
+    series: Sequence[Sequence[float]],
+    labels: Sequence[str],
+    ylabel: str = "Value",
+    colors: Sequence[str] | None = None,
+    annotate: bool = False
+) -> BarContainer:
+    """Renders a high-contrast grouped bar chart."""
+    data = _as_2d_array("series", series)
+    n_series, n_cats = data.shape
+    _require(len(categories) == n_cats, "Category count mismatch")
+    
+    x = np.arange(n_cats)
+    total_width = 0.8
+    width = total_width / n_series
+    color_map = colors or DEFAULT_COLORS
+
+    last_bars = None
+    for i in range(n_series):
+        offset = (i - (n_series - 1) / 2) * width
+        bars = ax.bar(x + offset, data[i], width, label=labels[i], 
+                      color=color_map[i % len(color_map)], edgecolor="white", lw=0.5)
+        last_bars = bars
+        if annotate:
+            annotate_bars(ax, bars)
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(categories)
+    ax.set_ylabel(ylabel)
+    ax.legend()
+    return last_bars
+
+
+def annotate_bars(
+    ax: Axes,
+    bars: BarContainer,
+    fmt: str = "{:.2f}",
+    fontsize: int = 10,
+    padding: float = 3
+) -> None:
+    """Adds text labels above bars in a BarContainer."""
+    for bar in bars:
+        height = bar.get_height()
+        ax.annotate(fmt.format(height),
+                    xy=(bar.get_x() + bar.get_width() / 2, height),
+                    xytext=(0, padding),
+                    textcoords="offset points",
+                    ha='center', va='bottom', fontsize=fontsize)
+
+
+def make_heatmap(
+    ax: Axes,
+    matrix: Sequence[Sequence[float]],
+    x_labels: Sequence[str] | None = None,
+    y_labels: Sequence[str] | None = None,
+    cmap: str = "magma",
+    cbar_label: str | None = None,
+    annotate: bool = False
+) -> AxesImage:
+    """Renders a cleaned heatmap with optional text annotations."""
+    data = _as_2d_array("matrix", matrix)
+    im = ax.imshow(data, cmap=cmap, aspect="auto", interpolation="nearest")
+    
+    if x_labels:
+        ax.set_xticks(np.arange(len(x_labels)))
+        ax.set_xticklabels(x_labels, rotation=45, ha="right")
+    if y_labels:
+        ax.set_yticks(np.arange(len(y_labels)))
+        ax.set_yticklabels(y_labels)
+
+    if cbar_label:
+        cbar = ax.figure.colorbar(im, ax=ax)
+        cbar.set_label(cbar_label)
+
+    if annotate:
+        threshold = (data.max() + data.min()) / 2
+        for i in range(data.shape[0]):
+            for j in range(data.shape[1]):
+                val = data[i, j]
+                color = "white" if val < threshold else "black"
+                ax.text(j, i, f"{val:.2f}", ha="center", va="center", color=color, fontsize=9)
+    
+    return im
 
 
 def make_scatter(
-    ax: plt.Axes,
+    ax: Axes,
     x: Sequence[float],
     y: Sequence[float],
-    groups: Sequence[int] | None = None,
-    labels: Sequence[str] | None = None,
-    size: float = 80,
+    label: str | None = None,
+    color: str | None = None,
+    size: float = 50,
+    alpha: float = 0.7
 ) -> None:
-    """Draw publication-style scatter with alpha and edge contrast."""
-    x_arr = np.asarray(x, dtype=float)
-    y_arr = np.asarray(y, dtype=float)
+    """Renders a publication-style scatter plot."""
+    x_arr = _as_1d_array("x", x)
+    y_arr = _as_1d_array("y", y)
+    _require(len(x_arr) == len(y_arr), "Length mismatch in scatter")
+    
+    ax.scatter(x_arr, y_arr, s=size, label=label, 
+               color=color or PALETTE["blue_main"], alpha=alpha, edgecolors="white", lw=0.5)
+    if label:
+        ax.legend()
 
-    if groups is None:
-        ax.scatter(x_arr, y_arr, s=size, color=PALETTE["blue_secondary"], alpha=0.75, edgecolors="black", linewidths=0.8)
-    else:
-        group_arr = np.asarray(groups)
-        uniq = sorted(set(int(v) for v in group_arr))
-        colors = [PALETTE["green_3"], PALETTE["red_2"], PALETTE["blue_main"], PALETTE["teal"]]
-        for i, gid in enumerate(uniq):
-            mask = group_arr == gid
-            label = str(gid) if labels is None else labels[i]
-            ax.scatter(x_arr[mask], y_arr[mask], s=size, color=colors[i % len(colors)], alpha=0.75, edgecolors="black", linewidths=0.8, label=label)
-        ax.legend(loc="best")
 
-    ax.set_xlabel("X")
-    ax.set_ylabel("Y")
+def make_sphere_illustration(
+    ax: Axes,
+    light_dir: tuple[float, float, float] = (-0.5, 0.5, 0.8),
+    resolution: int = 128,
+    alpha: float = 0.6
+) -> None:
+    """Draws a shaded 2D sphere to mimic 3D lighting."""
+    xs = np.linspace(-1, 1, resolution)
+    ys = np.linspace(-1, 1, resolution)
+    x, y = np.meshgrid(xs, ys)
+    r2 = x**2 + y**2
+    mask = r2 <= 1.0
+
+    z = np.zeros_like(x)
+    z[mask] = np.sqrt(1.0 - r2[mask])
+
+    norm = np.sqrt(x**2 + y**2 + z**2) + 1e-12
+    nx, ny, nz = x / norm, y / norm, z / norm
+
+    light = np.array(light_dir)
+    light = light / np.linalg.norm(light)
+
+    intensity = np.maximum(0.0, nx * light[0] + ny * light[1] + nz * light[2])
+    shade = np.clip(0.3 + 0.9 * intensity, 0.0, 1.0)
+
+    img = np.ones((resolution, resolution), dtype=float)
+    img[mask] = shade[mask]
+
+    ax.imshow(img, cmap="gray", origin="lower", extent=[-1, 1, -1, 1], 
+              vmin=0, vmax=1, alpha=alpha)
+    ax.set_axis_off()
+
+
+def demo() -> None:
+    """Runs a verification demo for all major plot types."""
+    logging.basicConfig(level=logging.INFO)
+    apply_publication_style()
+    
+    fig, axes = create_subplots(2, 3, figsize=(18, 10))
+    
+    # Row 1
+    x = np.linspace(0, 10, 50)
+    make_trend(axes[0], x, [np.sin(x), np.cos(x)], ["Sin", "Cos"], xlabel="Time")
+    make_grouped_bar(axes[1], ["A", "B", "C"], [[10, 20, 15], [12, 18, 14]], ["S1", "S2"], annotate=True)
+    make_heatmap(axes[2], np.random.rand(5, 5), annotate=True, cbar_label="Intensity")
+    
+    # Row 2
+    make_scatter(axes[3], np.random.randn(50), np.random.randn(50), label="Samples", color=PALETTE["teal"])
+    make_sphere_illustration(axes[4])
+    axes[5].text(0.5, 0.5, "Scientific Figure Pro\nVerification Suite", ha="center", va="center", fontsize=14)
+    axes[5].set_axis_off()
+    
+    finalize_figure(fig, "scientific_figure_demo_full", formats=["png", "pdf"])
 
 
 if __name__ == "__main__":
-    apply_publication_style(FigureStyle(font_size=16, axes_linewidth=2.5))
-    fig, axes = plt.subplots(1, 3, figsize=(18, 5))
-    
-    # Bar demo
-    make_grouped_bar(axes[0], ["A", "B"], [[0.8, 0.9], [0.7, 0.85]], ["Proposed", "Baseline"])
-    
-    # Sphere demo
-    make_sphere_illustration(axes[1])
-    
-    # Trend demo
-    x = np.linspace(0, 10, 20)
-    make_trend(axes[2], x, [np.sin(x), np.cos(x)], ["Sin", "Cos"], show_shadow=True)
-    
-    finalize_figure(fig, "skill_test_final.png")
-    print("Skill updated and verified with skill_test_final.png")
+    demo()
