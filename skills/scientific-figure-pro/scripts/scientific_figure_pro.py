@@ -1,8 +1,8 @@
 """Publication-quality plotting utilities for scientific figures.
 
-This module provides a suite of high-level wrappers around matplotlib to produce 
-consistent, submission-ready scientific figures. It enforces a unified aesthetic 
-(Helvetica-like fonts, high-contrast palettes, minimal spines) and handles 
+This module provides a suite of high-level wrappers around matplotlib to produce
+consistent, submission-ready scientific figures. It enforces a unified aesthetic
+(Helvetica-like fonts, high-contrast palettes, minimal spines) and handles
 robust export workflows for LaTeX and digital formats.
 
 Standard usage involves:
@@ -155,7 +155,7 @@ def create_subplots(
         A tuple of (Figure, flat array of Axes).
     """
     _require(nrows > 0 and ncols > 0, "Grid dimensions must be positive integers.")
-    
+
     fig, axes = plt.subplots(nrows, ncols, figsize=figsize, **kwargs)
     return fig, np.atleast_1d(np.array(axes, dtype=object)).flatten()
 
@@ -188,10 +188,10 @@ def finalize_figure(
     """
     path = Path(out_path)
     exts = formats
-    
+
     if not exts:
         exts = [path.suffix.lstrip(".")] if path.suffix else ["pdf", "svg", "eps"]
-    
+
     base = path.with_suffix("") if path.suffix else path
     base.parent.mkdir(parents=True, exist_ok=True)
 
@@ -199,19 +199,19 @@ def finalize_figure(
     for ext in exts:
         ext = ext.lower().strip(".")
         _require(ext in _SUPPORTED_FORMATS, f"Unsupported format: {ext}")
-        
+
         target = base.with_suffix(f".{ext}")
         save_params = {"format": ext, "bbox_inches": "tight", "pad_inches": pad}
         if ext in _RASTER_FORMATS:
             save_params["dpi"] = dpi
         save_params.update(kwargs)
-        
+
         fig.savefig(target, **save_params)
         saved.append(target)
-    
+
     if close:
         plt.close(fig)
-    
+
     logger.info(f"Saved figure to: {', '.join(p.name for p in saved)}")
     return saved
 
@@ -231,17 +231,17 @@ def make_trend(
     """Renders multiple line trends with optional confidence shadows."""
     x_arr = _as_1d_array("x", x)
     color_map = colors or DEFAULT_COLORS
-    
+
     for i, y in enumerate(y_series):
         y_arr = _as_1d_array(f"y_series[{i}]", y)
         _require(len(x_arr) == len(y_arr), f"Length mismatch in series {i}")
-        
+
         color = color_map[i % len(color_map)]
         if show_shadow:
             span = np.ptp(y_arr) or 1.0
-            ax.fill_between(x_arr, y_arr - 0.03*span, y_arr + 0.03*span, 
+            ax.fill_between(x_arr, y_arr - 0.03*span, y_arr + 0.03*span,
                            color=color, alpha=0.1, lw=0)
-        
+
         ax.plot(x_arr, y_arr, label=labels[i], color=color, lw=2.5, alpha=0.9)
 
     if xlabel: ax.set_xlabel(xlabel)
@@ -262,7 +262,7 @@ def make_grouped_bar(
     data = _as_2d_array("series", series)
     n_series, n_cats = data.shape
     _require(len(categories) == n_cats, "Category count mismatch")
-    
+
     x = np.arange(n_cats)
     total_width = 0.8
     width = total_width / n_series
@@ -271,7 +271,7 @@ def make_grouped_bar(
     last_bars = None
     for i in range(n_series):
         offset = (i - (n_series - 1) / 2) * width
-        bars = ax.bar(x + offset, data[i], width, label=labels[i], 
+        bars = ax.bar(x + offset, data[i], width, label=labels[i],
                       color=color_map[i % len(color_map)], edgecolor="white", lw=0.5)
         last_bars = bars
         if annotate:
@@ -313,7 +313,7 @@ def make_heatmap(
     """Renders a cleaned heatmap with optional text annotations."""
     data = _as_2d_array("matrix", matrix)
     im = ax.imshow(data, cmap=cmap, aspect="auto", interpolation="nearest")
-    
+
     if x_labels:
         ax.set_xticks(np.arange(len(x_labels)))
         ax.set_xticklabels(x_labels, rotation=45, ha="right")
@@ -332,7 +332,7 @@ def make_heatmap(
                 val = data[i, j]
                 color = "white" if val < threshold else "black"
                 ax.text(j, i, f"{val:.2f}", ha="center", va="center", color=color, fontsize=9)
-    
+
     return im
 
 
@@ -349,8 +349,8 @@ def make_scatter(
     x_arr = _as_1d_array("x", x)
     y_arr = _as_1d_array("y", y)
     _require(len(x_arr) == len(y_arr), "Length mismatch in scatter")
-    
-    ax.scatter(x_arr, y_arr, s=size, label=label, 
+
+    ax.scatter(x_arr, y_arr, s=size, label=label,
                color=color or PALETTE["blue_main"], alpha=alpha, edgecolors="white", lw=0.5)
     if label:
         ax.legend()
@@ -384,31 +384,88 @@ def make_sphere_illustration(
     img = np.ones((resolution, resolution), dtype=float)
     img[mask] = shade[mask]
 
-    ax.imshow(img, cmap="gray", origin="lower", extent=[-1, 1, -1, 1], 
+    ax.imshow(img, cmap="gray", origin="lower", extent=[-1, 1, -1, 1],
               vmin=0, vmax=1, alpha=alpha)
     ax.set_axis_off()
 
 
 def demo() -> None:
-    """Runs a verification demo for all major plot types."""
+    """Runs a polished demo for all major plot types."""
     logging.basicConfig(level=logging.INFO)
-    apply_publication_style()
-    
-    fig, axes = create_subplots(2, 3, figsize=(18, 10))
-    
-    # Row 1
-    x = np.linspace(0, 10, 50)
-    make_trend(axes[0], x, [np.sin(x), np.cos(x)], ["Sin", "Cos"], xlabel="Time")
-    make_grouped_bar(axes[1], ["A", "B", "C"], [[10, 20, 15], [12, 18, 14]], ["S1", "S2"], annotate=True)
-    make_heatmap(axes[2], np.random.rand(5, 5), annotate=True, cbar_label="Intensity")
-    
-    # Row 2
-    make_scatter(axes[3], np.random.randn(50), np.random.randn(50), label="Samples", color=PALETTE["teal"])
-    make_sphere_illustration(axes[4])
-    axes[5].text(0.5, 0.5, "Scientific Figure Pro\nVerification Suite", ha="center", va="center", fontsize=14)
-    axes[5].set_axis_off()
-    
-    finalize_figure(fig, "scientific_figure_demo_full", formats=["png", "pdf"])
+    rng = np.random.default_rng(11)
+    apply_publication_style(FigureStyle(font_size=14, axes_linewidth=2.2))
+
+    fig, axes = create_subplots(2, 2, figsize=(14, 10), constrained_layout=True)
+
+    # Panel A: convergence trends with uncertainty bands.
+    epochs = np.arange(1, 121)
+    curve_a = 0.50 + 0.40 * (1 - np.exp(-epochs / 33.0)) + rng.normal(0, 0.006, size=epochs.size)
+    curve_b = 0.47 + 0.35 * (1 - np.exp(-epochs / 40.0)) + rng.normal(0, 0.007, size=epochs.size)
+    curve_c = 0.45 + 0.31 * (1 - np.exp(-epochs / 47.0)) + rng.normal(0, 0.008, size=epochs.size)
+    make_trend(
+        axes[0],
+        x=epochs,
+        y_series=[curve_a, curve_b, curve_c],
+        labels=["Model Alpha", "Model Beta", "Model Gamma"],
+        colors=[PALETTE["blue_main"], PALETTE["teal"], PALETTE["red_strong"]],
+        xlabel="Epoch",
+        ylabel="Validation Accuracy",
+        show_shadow=True,
+    )
+    axes[0].set_ylim(0.45, 0.93)
+    axes[0].set_title("A. Convergence Trends", loc="left", fontweight="bold")
+    axes[0].grid(alpha=0.2, linestyle="--")
+
+    # Panel B: grouped performance comparison with labels.
+    categories = ["Speed", "Accuracy", "Stability", "Memory"]
+    series = [
+        [87, 92, 85, 80],
+        [84, 89, 90, 83],
+        [79, 86, 82, 88],
+    ]
+    make_grouped_bar(
+        axes[1],
+        categories=categories,
+        series=series,
+        labels=["Model Alpha", "Model Beta", "Model Gamma"],
+        ylabel="Score",
+        colors=[PALETTE["blue_secondary"], PALETTE["green_3"], PALETTE["red_2"]],
+        annotate=True,
+    )
+    axes[1].set_ylim(70, 100)
+    axes[1].set_title("B. Grouped Performance Comparison", loc="left", fontweight="bold")
+
+    # Panel C: feature correlation heatmap from structured synthetic data.
+    n_features = 8
+    base = rng.normal(size=(600, n_features))
+    transform = np.array([
+        [1.0, 0.68, 0.14, -0.22, 0.39, 0.12, -0.15, 0.28],
+        [0.68, 1.0, 0.10, -0.19, 0.35, 0.18, -0.20, 0.24],
+        [0.14, 0.10, 1.0, 0.63, -0.08, 0.55, 0.30, -0.16],
+        [-0.22, -0.19, 0.63, 1.0, -0.12, 0.44, 0.26, -0.21],
+        [0.39, 0.35, -0.08, -0.12, 1.0, 0.14, -0.10, 0.58],
+        [0.12, 0.18, 0.55, 0.44, 0.14, 1.0, 0.46, -0.09],
+        [-0.15, -0.20, 0.30, 0.26, -0.10, 0.46, 1.0, -0.27],
+        [0.28, 0.24, -0.16, -0.21, 0.58, -0.09, -0.27, 1.0],
+    ])
+    corr = np.corrcoef(base @ transform, rowvar=False)
+    labels = [f"F{i}" for i in range(1, n_features + 1)]
+    make_heatmap(
+        axes[2],
+        matrix=corr,
+        x_labels=labels,
+        y_labels=labels,
+        cmap="magma",
+        cbar_label="Correlation",
+        annotate=False,
+    )
+    axes[2].set_title("C. Feature Correlation Matrix", loc="left", fontweight="bold")
+
+    # Panel D: conceptual geometry panel.
+    make_sphere_illustration(axes[3], light_dir=(-0.55, 0.65, 0.55), resolution=280, alpha=0.95)
+    axes[3].set_title("D. Shaded Sphere Illustration", loc="left", fontweight="bold")
+
+    finalize_figure(fig, "scientific_figure_demo_full", formats=["png", "pdf"], dpi=350, pad=0.06)
 
 
 if __name__ == "__main__":

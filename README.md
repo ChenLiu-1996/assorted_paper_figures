@@ -32,3 +32,37 @@ These figures were made partially in Python. I included them to acknowledge the 
 <br><img src="assets/ImmunoStruct_results_IEDB.png" width="400"><img src="assets/ImmunoStruct_results_CEDAR.png" width="400">
 <br><img src="assets/RNAGenScape_schematic.png" width="400"><img src="assets/Dispersion_motivation.png" width="400">
 <br><img src="assets/Dispersion_observation.png" width="400"><img src="assets/Dispersion_observation_distillation.png" width="400">
+
+<details>
+<summary><strong>How to use the Scientific Figure Pro skill (click to expand)</strong></summary>
+
+<br>
+
+The repository includes an LLM skill guide plus reusable helper scripts:
+
+- Skill guide: `skills/scientific-figure-pro/SKILL.md`
+- Style rationale: `DESIGN_THEORY.md`
+- Helper implementation: `skills/scientific-figure-pro/scripts/scientific_figure_pro.py`
+
+### Simple AI workflow
+
+1. Open this repository in Cursor.
+2. Ask the AI to create or update a plotting script in your target folder (for example `figure_PROJECT_NAME/`).
+3. In your prompt, explicitly ask it to follow `skills/scientific-figure-pro/SKILL.md` and `DESIGN_THEORY.md`.
+4. Run the generated script and check the exported figure.
+
+### Prompt template (copy/paste)
+
+```text
+Create a publication-quality figure script at <target_path>.
+Use the Scientific Figure Pro skill conventions from:
+- skills/scientific-figure-pro/SKILL.md
+- DESIGN_THEORY.md
+
+Load and use `skills/scientific-figure-pro/scripts/scientific_figure_pro.py` (apply_publication_style, make_* helpers, finalize_figure).
+Input data: <describe your data or paste arrays>.
+Output files: <name>.png and <name>.pdf.
+Keep the style consistent with this repository.
+```
+
+</details>

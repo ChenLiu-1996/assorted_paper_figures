@@ -56,10 +56,12 @@ Use semantic colors from `PALETTE`:
 ```python
 import importlib.util
 from pathlib import Path
+import sys
 
 module_path = Path("skills/scientific-figure-pro/scripts/scientific_figure_pro.py")
 spec = importlib.util.spec_from_file_location("scientific_figure_pro", module_path)
 mod = importlib.util.module_from_spec(spec)
+sys.modules[spec.name] = mod
 spec.loader.exec_module(mod)
 
 mod.apply_publication_style(mod.FigureStyle(font_size=16, axes_linewidth=2.5))
