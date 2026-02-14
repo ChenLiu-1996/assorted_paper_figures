@@ -25,7 +25,7 @@ I am [Chen Liu](https://chenliu-1996.github.io/), a Computer Science PhD Candida
 <img src="figure_Dispersion/figures/illustration.png" width="800">
 
 ### Miscellaneous: non-pure-Python figures
-These are some of my figures made partially but not purely in Python. Including them to appreciate the time I spent on them.
+These figures were made partially with Python. I included them to acknowledge the time and efforts I spent.
 
 <img src="assets/ImmunoStruct_schematic.png" width="400"><img src="assets/ImmunoStruct_contrastive.png" width="400">
 <br><img src="assets/ImmunoStruct_results_IEDB.png" width="400"><img src="assets/ImmunoStruct_results_CEDAR.png" width="400">
