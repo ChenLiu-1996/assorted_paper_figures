@@ -80,12 +80,13 @@ Keep the style consistent with this repository.
 [![PDF](https://img.shields.io/badge/PDF-DADBDD)](https://www.nature.com/articles/s42256-025-01163-y.pdf)
 [![GitHub Stars](https://img.shields.io/github/stars/KrishnaswamyLab/ImmunoStruct.svg?style=social\&label=Stars)](https://github.com/KrishnaswamyLab/ImmunoStruct)
 ```bibtex
-@article{givechian2025immunostruct,
+@article{givechian2026immunostruct,
   title={ImmunoStruct enables multimodal deep learning for immunogenicity prediction},
   author={Givechian, Kevin Bijan and Rocha, Jo{\~a}o Felipe and Liu, Chen and Yang, Edward and Tyagi, Sidharth and Greene, Kerrie and Ying, Rex and Caron, Etienne and Iwasaki, Akiko and Krishnaswamy, Smita},
   journal={Nature Machine Intelligence},
-  pages={1--14},
-  year={2025},
+  volume={8},
+  pages={70--83},
+  year={2026},
   publisher={Nature Publishing Group UK London}
 }
 ```
