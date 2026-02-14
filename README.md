@@ -25,4 +25,3 @@ I am [Chen Liu](https://chenliu-1996.github.io/), a Computer Science PhD Candida
 <img src="figure_Dispersion/figures/illustration.png" width="800">
 
 ### Miscellaneous
-<img src="assets/example.gif" width="800">
