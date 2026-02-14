@@ -76,6 +76,9 @@ Keep the style consistent with this repository.
 <details>
 <summary>ImmunoStruct</summary>
 
+[![nature](https://img.shields.io/badge/nature-machine_intelligence-white)](https://www.nature.com/articles/s42256-025-01163-y)
+[![PDF](https://img.shields.io/badge/PDF-DADBDD)](https://www.nature.com/articles/s42256-025-01163-y.pdf)
+[![GitHub Stars](https://img.shields.io/github/stars/KrishnaswamyLab/ImmunoStruct.svg?style=social\&label=Stars)](https://github.com/KrishnaswamyLab/ImmunoStruct)
 ```bibtex
 @article{givechian2025immunostruct,
   title={ImmunoStruct enables multimodal deep learning for immunogenicity prediction},
@@ -91,6 +94,8 @@ Keep the style consistent with this repository.
 <details>
 <summary>Dispersion</summary>
 
+[![arXiv](https://img.shields.io/badge/arXiv-Dispersion-firebrick)](https://arxiv.org/abs/2602.00217) 
+[![PDF](https://img.shields.io/badge/PDF-silver)](https://arxiv.org/pdf/2602.00217)
 ```bibtex
 @article{liu2026dispersion,
   title={Dispersion Loss Counteracts Embedding Condensation and Improves Generalization in Small Language Models},
@@ -104,6 +109,8 @@ Keep the style consistent with this repository.
 <details>
 <summary>RNAGenScape</summary>
 
+[![arXiv](https://img.shields.io/badge/arXiv-RNAGenScape-firebrick)](https://arxiv.org/abs/2510.24736) 
+[![PDF](https://img.shields.io/badge/PDF-silver)](https://arxiv.org/pdf/2510.24736)
 ```bibtex
 @article{liao2025rnagenscape,
   title={RNAGenScape: Property-Guided, Optimized Generation of mRNA Sequences with Manifold Langevin Dynamics},
@@ -117,6 +124,9 @@ Keep the style consistent with this repository.
 <details>
 <summary>brainteaser</summary>
 
+[![NeurIPS](https://img.shields.io/badge/NeurIPS-white)](https://openreview.net/forum?id=3oQDkmW72a)
+[![arXiv](https://img.shields.io/badge/arXiv-brainteaser-firebrick)](https://arxiv.org/abs/2505.10844) 
+[![PDF](https://img.shields.io/badge/PDF-silver)](https://arxiv.org/pdf/2505.10844)
 ```bibtex
 @article{han2025creativity,
   title={Creativity or Brute Force? Using Brainteasers as a Window into the Problem-Solving Abilities of Large Language Models},
