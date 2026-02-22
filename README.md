@@ -78,6 +78,8 @@ Keep the style consistent with this repository.
 
 [![nature](https://img.shields.io/badge/nature-machine_intelligence-gold)](https://www.nature.com/articles/s42256-025-01163-y)
 [![PDF](https://img.shields.io/badge/PDF-DADBDD)](https://www.nature.com/articles/s42256-025-01163-y.pdf)
+[![Huggingface](https://img.shields.io/badge/Dataset-ImmunoStruct-orange)](https://huggingface.co/datasets/ChenLiu1996/ImmunoStruct)
+[![Huggingface](https://img.shields.io/badge/Model-ImmunoStruct-orange)](https://huggingface.co/ChenLiu1996/ImmunoStruct)
 [![GitHub Stars](https://img.shields.io/github/stars/KrishnaswamyLab/ImmunoStruct.svg?style=social\&label=Stars)](https://github.com/KrishnaswamyLab/ImmunoStruct)
 ```bibtex
 @article{givechian2026immunostruct,
@@ -130,6 +132,7 @@ Keep the style consistent with this repository.
 [![HuggingFace Dataset](https://img.shields.io/badge/HuggingFace_Dataset-orange)](https://huggingface.co/datasets/ChenLiu1996/Brainteaser)
 [![arXiv](https://img.shields.io/badge/arXiv-brainteaser-firebrick)](https://arxiv.org/abs/2505.10844) 
 [![PDF](https://img.shields.io/badge/PDF-DADBDD)](https://arxiv.org/pdf/2505.10844)
+[![GitHub Stars](https://img.shields.io/github/stars/stephenxia1/brainteasers.svg?style=social\&label=Stars)](https://github.com/stephenxia1/brainteasers)
 ```bibtex
 @article{han2025creativity,
   title={Creativity or Brute Force? Using Brainteasers as a Window into the Problem-Solving Abilities of Large Language Models},
