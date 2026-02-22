@@ -129,7 +129,7 @@ Keep the style consistent with this repository.
 
 [![OpenReview](https://img.shields.io/badge/OpenReview-eeeeee)](https://openreview.net/forum?id=3oQDkmW72a)
 [![NeurIPS 2025](https://img.shields.io/badge/NeurIPS_2025-purple)](https://openreview.net/pdf?id=3oQDkmW72a)
-[![HuggingFace Dataset](https://img.shields.io/badge/HuggingFace_Dataset-orange)](https://huggingface.co/datasets/ChenLiu1996/Brainteaser)
+[![HuggingFace Dataset](https://img.shields.io/badge/Dataset-brainteaser-orange)](https://huggingface.co/datasets/ChenLiu1996/Brainteaser)
 [![arXiv](https://img.shields.io/badge/arXiv-brainteaser-firebrick)](https://arxiv.org/abs/2505.10844) 
 [![PDF](https://img.shields.io/badge/PDF-DADBDD)](https://arxiv.org/pdf/2505.10844)
 [![GitHub Stars](https://img.shields.io/github/stars/stephenxia1/brainteasers.svg?style=social\&label=Stars)](https://github.com/stephenxia1/brainteasers)
