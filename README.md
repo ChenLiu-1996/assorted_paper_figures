@@ -53,9 +53,29 @@ scientific-figure-making/
 
 That folder is docs-only (no scripts); implement from the API or copy patterns from the `figure_*` projects.
 
-### Using this skill in an AI coding agent (no installation)
+### Using this skill in an AI coding agent
 
-You can use this skill **without installing anything**: open this repo in your AI coding agent (e.g. [Cursor](https://cursor.com), Claude Code, etc.) and reference the skill by path in your prompts. The agent reads `scientific-figure-making/SKILL.md` and the `references/` files from the repo—no symlinks or plugins required. (Other skill repos like [AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) or [advisorandme](https://github.com/shan23chen/advisorandme) use install-to-agent workflows; this one is path-based.)
+<details>
+<summary><strong>No installation (path-based)</strong></summary>
+
+You can use this skill **without installing anything**: open this repo in your AI coding agent (e.g. [Cursor](https://cursor.com), Claude Code, etc.) and reference the skill by path in your prompts. The agent reads `scientific-figure-making/SKILL.md` and the `references/` files from the repo—no symlinks or plugins required.
+
+</details>
+
+<details>
+<summary><strong>Install as a skill (symlink)</strong></summary>
+
+From the repository root, run:
+
+| Agent       | Commands |
+|------------|----------|
+| **Cursor** | `mkdir -p ~/.cursor/skills` then `ln -s "$(pwd)/scientific-figure-making" ~/.cursor/skills/scientific-figure-making` |
+| **Claude Code** | `mkdir -p ~/.claude/skills` then `ln -s "$(pwd)/scientific-figure-making" ~/.claude/skills/scientific-figure-making` |
+| **Codex**  | `mkdir -p ~/.codex/skills` then `ln -s "$(pwd)/scientific-figure-making" ~/.codex/skills/scientific-figure-making` |
+
+Restart the agent (or refresh its skill list) after linking. You can then invoke or cite the skill by name in addition to using path-based references when the repo is open.
+
+</details>
 
 ### Simple AI workflow
 
