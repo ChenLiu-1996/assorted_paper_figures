@@ -64,6 +64,8 @@ Use semantic colors from the skill palette:
 - Neutral for references/background categories.
 - Highlight only for targeted callouts.
 
+When choosing or extending palettes, consider [Nature's artwork guide](https://www.nature.com/documents/natrev-artworkguide.pdf) for journal-friendly, accessible color choices (e.g. hierarchy, contrast, and avoiding red/green-only distinctions).
+
 Exact keys and hex values are in [references/api.md](references/api.md).
 
 ## Common issues

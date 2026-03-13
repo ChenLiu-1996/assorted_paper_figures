@@ -7,11 +7,6 @@ This is a centralized repository of my own **Python scripts for high-quality fig
 
 I am [Chen Liu](https://chenliu-1996.github.io/), a Computer Science PhD Candidate at Yale University.
 
-<<<<<<< HEAD
-<br>
-
-=======
->>>>>>> 67998aa (update skill)
 ### Bar plots for quantitative comparison
 <img src="figure_ImmunoStruct/figures/bars_comparison_IEDB.png" width="800">
 
@@ -58,9 +53,13 @@ scientific-figure-making/
 
 That folder is docs-only (no scripts); implement from the API or copy patterns from the `figure_*` projects.
 
+### Using this skill in an AI coding agent (no installation)
+
+You can use this skill **without installing anything**: open this repo in your AI coding agent (e.g. [Cursor](https://cursor.com), Claude Code, etc.) and reference the skill by path in your prompts. The agent reads `scientific-figure-making/SKILL.md` and the `references/` files from the repo—no symlinks or plugins required. (Other skill repos like [AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs) or [advisorandme](https://github.com/shan23chen/advisorandme) use install-to-agent workflows; this one is path-based.)
+
 ### Simple AI workflow
 
-1. Open this repository in Cursor.
+1. Open this repository in your AI coding agent (e.g. Cursor).
 2. Ask the AI to create or update a plotting script in your target folder (for example `figure_PROJECT_NAME/`).
 3. In your prompt, explicitly ask it to follow `scientific-figure-making/SKILL.md` and `scientific-figure-making/references/design-theory.md`.
 4. Run the generated script and check the exported figure.
