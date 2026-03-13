@@ -16,6 +16,16 @@ data_ablation = {
     'result': np.array([0.88, 0.84, 0.82, 0.81, 0.74]),
 }
 
+def is_dark(color_in_hex, threshold=128):
+    color = color_in_hex.lstrip('#')
+    r = int(color[0:2], 16)
+    g = int(color[2:4], 16)
+    b = int(color[4:6], 16)
+
+    luminance = 0.299*r + 0.587*g + 0.114*b
+    return luminance < threshold
+
+
 if __name__ == '__main__':
     plt.rcParams['font.family'] = 'helvetica'
     plt.rcParams['font.size'] = 24
@@ -35,8 +45,9 @@ if __name__ == '__main__':
     )
 
     for i, (bar, value) in enumerate(zip(bars, data_ablation['result'])):
-        ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.002,
-            f'{value:.2f}', ha='center', va='bottom', fontsize=36)
+        textcolor = 'white' if is_dark(data_ablation['colors'][i]) else 'black'
+        ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() - 0.08,
+            f'{value:.2f}', ha='center', va='bottom', fontsize=32, color=textcolor)
 
     # Add horizontal reference line at the first bar
     baseline = data_ablation['result'][0]  # 0.88
@@ -57,12 +68,13 @@ if __name__ == '__main__':
 
         # Add reduction text near the top (at baseline level)
         ax.text(x_pos - 0.3, baseline + 0.005, r'$-$'+f'{reduction:.2f}',
-                ha='left', va='bottom', fontsize=28, color='red')
+                ha='left', va='bottom', fontsize=24, color='red')
 
     ax.set_ylabel('Spearman correlation', fontsize=54, labelpad=12)
-    ax.set_ylim([0.7, 1.0])
-    ax.set_yticks([0.7, 0.8, 0.9, 1.0])
-    ax.set_yticklabels([0.7, 0.8, 0.9, 1.0], fontsize=36)
+    ymax = np.max(data_ablation['result'][:])
+    ax.set_ylim([0.0, ymax + 0.5])
+    ax.set_yticks([0.0, 0.25, 0.50, 0.75, 1.0])
+    ax.tick_params(axis='y', labelsize=36, length=10, width=2)
     ax.set_xticks([])
 
     ax.legend(bbox_to_anchor=(0.50, 1.08), loc='upper left', fontsize=36, frameon=False)

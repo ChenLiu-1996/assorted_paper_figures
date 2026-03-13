@@ -7,8 +7,11 @@ This is a centralized repository of my own **Python scripts for high-quality fig
 
 I am [Chen Liu](https://chenliu-1996.github.io/), a Computer Science PhD Candidate at Yale University.
 
+<<<<<<< HEAD
 <br>
 
+=======
+>>>>>>> 67998aa (update skill)
 ### Bar plots for quantitative comparison
 <img src="figure_ImmunoStruct/figures/bars_comparison_IEDB.png" width="800">
 
@@ -38,39 +41,44 @@ These figures were made partially in Python. I included them to acknowledge the 
 
 ## LLM skill integration (credit to my friend [Shan Chen](https://shanchen.dev/))
 
-<details>
-<summary><strong>How to use the Scientific Figure Pro skill (click to expand)</strong></summary>
+The **scientific figure making** skill lives in `scientific-figure-making/`. Demo figures live in `assets/`; project-specific scripts and outputs live in `figure_*/`. The skill folder stays self-contained so it can be copied elsewhere as-is; `figure_*/` are this repo's projects that *use* the skill, so they stay at root alongside it.
 
-<br>
+### Skill folder hierarchy
 
-The repository includes an LLM skill guide plus reusable helper scripts:
+```
+scientific-figure-making/
+├── SKILL.md                              # Quick reference: metadata, when to use, patterns, links
+└── references/
+    ├── api.md                            # API/conventions to implement (palette, helpers, export)
+    ├── common-patterns.md                # Reusable figure patterns
+    ├── demos.md                          # Real-world figure_* projects (with URLs)
+    ├── design-theory.md                  # Style rationale and design principles
+    └── tutorials.md                      # Step-by-step guides
+```
 
-- Skill guide: `skills/scientific-figure-pro/SKILL.md`
-- Style rationale: `DESIGN_THEORY.md`
-- Helper implementation: `skills/scientific-figure-pro/scripts/scientific_figure_pro.py`
+That folder is docs-only (no scripts); implement from the API or copy patterns from the `figure_*` projects.
 
 ### Simple AI workflow
 
 1. Open this repository in Cursor.
 2. Ask the AI to create or update a plotting script in your target folder (for example `figure_PROJECT_NAME/`).
-3. In your prompt, explicitly ask it to follow `skills/scientific-figure-pro/SKILL.md` and `DESIGN_THEORY.md`.
+3. In your prompt, explicitly ask it to follow `scientific-figure-making/SKILL.md` and `scientific-figure-making/references/design-theory.md`.
 4. Run the generated script and check the exported figure.
 
 ### Prompt template (copy/paste)
 
 ```text
 Create a publication-quality figure script at <target_path>.
-Use the Scientific Figure Pro skill conventions from:
-- skills/scientific-figure-pro/SKILL.md
-- DESIGN_THEORY.md
+Use the Scientific Figure Making skill conventions from:
+- scientific-figure-making/SKILL.md
+- scientific-figure-making/references/design-theory.md
+- scientific-figure-making/references/api.md (palette, helpers, export)
 
-Load and use `skills/scientific-figure-pro/scripts/scientific_figure_pro.py` (apply_publication_style, make_* helpers, finalize_figure).
+Implement or adapt the patterns (apply_publication_style, make_* helpers, finalize_figure); see figure_* folders for reference scripts.
 Input data: <describe your data or paste arrays>.
 Output files: <name>.png and <name>.pdf.
 Keep the style consistent with this repository.
 ```
-
-</details>
 
 
 ## Related Papers
@@ -98,7 +106,7 @@ Keep the style consistent with this repository.
 <details>
 <summary>Dispersion</summary>
 
-[![arXiv](https://img.shields.io/badge/arXiv-Dispersion-firebrick)](https://arxiv.org/abs/2602.00217) 
+[![arXiv](https://img.shields.io/badge/arXiv-Dispersion-firebrick)](https://arxiv.org/abs/2602.00217)
 [![PDF](https://img.shields.io/badge/PDF-DADBDD)](https://arxiv.org/pdf/2602.00217)
 ```bibtex
 @article{liu2026dispersion,
@@ -113,7 +121,7 @@ Keep the style consistent with this repository.
 <details>
 <summary>RNAGenScape</summary>
 
-[![arXiv](https://img.shields.io/badge/arXiv-RNAGenScape-firebrick)](https://arxiv.org/abs/2510.24736) 
+[![arXiv](https://img.shields.io/badge/arXiv-RNAGenScape-firebrick)](https://arxiv.org/abs/2510.24736)
 [![PDF](https://img.shields.io/badge/PDF-DADBDD)](https://arxiv.org/pdf/2510.24736)
 ```bibtex
 @article{liao2025rnagenscape,
@@ -131,7 +139,7 @@ Keep the style consistent with this repository.
 [![OpenReview](https://img.shields.io/badge/OpenReview-eeeeee)](https://openreview.net/forum?id=3oQDkmW72a)
 [![NeurIPS 2025](https://img.shields.io/badge/NeurIPS_2025-purple)](https://openreview.net/pdf?id=3oQDkmW72a)
 [![HuggingFace Dataset](https://img.shields.io/badge/Dataset-brainteaser-orange)](https://huggingface.co/datasets/ChenLiu1996/Brainteaser)
-[![arXiv](https://img.shields.io/badge/arXiv-brainteaser-firebrick)](https://arxiv.org/abs/2505.10844) 
+[![arXiv](https://img.shields.io/badge/arXiv-brainteaser-firebrick)](https://arxiv.org/abs/2505.10844)
 [![PDF](https://img.shields.io/badge/PDF-DADBDD)](https://arxiv.org/pdf/2505.10844)
 [![GitHub Stars](https://img.shields.io/github/stars/stephenxia1/brainteasers.svg?style=social\&label=Stars)](https://github.com/stephenxia1/brainteasers)
 ```bibtex

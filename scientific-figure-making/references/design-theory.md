@@ -1,6 +1,6 @@
 # Publication Figure Design Theory (Derived from Repository Scripts)
 
-This theory is inferred from 22 Python plotting scripts in this repository.
+This theory is inferred from the Python plotting scripts in the [figures4papers](https://github.com/ChenLiu-1996/figures4papers) repository (the `figure_*` project folders). See [demos.md](demos.md) for links to those demos.
 
 ## 1) Core Matplotlib Style System
 
