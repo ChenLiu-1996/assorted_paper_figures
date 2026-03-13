@@ -34,7 +34,7 @@ These figures were made partially in Python. I included them to acknowledge the 
 
 <br>
 
-## LLM skill integration (credit to my friend [Shan Chen](https://shanchen.dev/))
+## LLM skill integration (some credits to my friend [Shan Chen](https://shanchen.dev/))
 
 The **scientific figure making** skill lives in `scientific-figure-making/`. Demo figures live in `assets/`; project-specific scripts and outputs live in `figure_*/`. The skill folder stays self-contained so it can be copied elsewhere as-is; `figure_*/` are this repo's projects that *use* the skill, so they stay at root alongside it.
 
@@ -60,6 +60,28 @@ That folder is docs-only (no scripts); implement from the API or copy patterns f
 
 You can use this skill **without installing anything**: open this repo in your AI coding agent (e.g. [Cursor](https://cursor.com), Claude Code, etc.) and reference the skill by path in your prompts. The agent reads `scientific-figure-making/SKILL.md` and the `references/` files from the repo—no symlinks or plugins required.
 
+**Simple AI workflow**
+
+1. Open this repository in your AI coding agent (e.g. Cursor).
+2. Ask the AI to create or update a plotting script in your target folder (for example `figure_PROJECT_NAME/`).
+3. In your prompt, explicitly ask it to follow `scientific-figure-making/SKILL.md` and `scientific-figure-making/references/design-theory.md`.
+4. Run the generated script and check the exported figure.
+
+**Prompt template (copy/paste)**
+
+```text
+Create a publication-quality figure script at <target_path>.
+Use the Scientific Figure Making skill conventions from:
+- scientific-figure-making/SKILL.md
+- scientific-figure-making/references/design-theory.md
+- scientific-figure-making/references/api.md (palette, helpers, export)
+
+Implement or adapt the patterns (apply_publication_style, make_* helpers, finalize_figure); see figure_* folders for reference scripts.
+Input data: <describe your data or paste arrays>.
+Output files: <name>.png and <name>.pdf.
+Keep the style consistent with this repository.
+```
+
 </details>
 
 <details>
@@ -76,29 +98,6 @@ From the repository root, run:
 Restart the agent (or refresh its skill list) after linking. You can then invoke or cite the skill by name in addition to using path-based references when the repo is open.
 
 </details>
-
-### Simple AI workflow
-
-1. Open this repository in your AI coding agent (e.g. Cursor).
-2. Ask the AI to create or update a plotting script in your target folder (for example `figure_PROJECT_NAME/`).
-3. In your prompt, explicitly ask it to follow `scientific-figure-making/SKILL.md` and `scientific-figure-making/references/design-theory.md`.
-4. Run the generated script and check the exported figure.
-
-### Prompt template (copy/paste)
-
-```text
-Create a publication-quality figure script at <target_path>.
-Use the Scientific Figure Making skill conventions from:
-- scientific-figure-making/SKILL.md
-- scientific-figure-making/references/design-theory.md
-- scientific-figure-making/references/api.md (palette, helpers, export)
-
-Implement or adapt the patterns (apply_publication_style, make_* helpers, finalize_figure); see figure_* folders for reference scripts.
-Input data: <describe your data or paste arrays>.
-Output files: <name>.png and <name>.pdf.
-Keep the style consistent with this repository.
-```
-
 
 ## Related Papers
 <details>
