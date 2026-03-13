@@ -36,7 +36,7 @@ These figures were made partially in Python. I included them to acknowledge the 
 
 ## LLM skill integration (some credits to my friend [Shan Chen](https://shanchen.dev/))
 
-The **scientific figure making** skill lives in `scientific-figure-making/`. Demo figures live in `assets/`; project-specific scripts and outputs live in `figure_*/`. The skill folder stays self-contained so it can be copied elsewhere as-is; `figure_*/` are this repo's projects that *use* the skill, so they stay at root alongside it.
+The **scientific figure making** skill lives in `scientific-figure-making/`. Demo figures live in `assets/`; project-specific scripts and outputs live in `figure_*/`.
 
 ### Skill folder hierarchy
 
